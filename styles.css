@@ -185,6 +185,7 @@ body::before {
     font-family: 'Dancing Script', cursive;
 }
 
+
 .contenido-franja1 {
     margin-top:auto;
     margin-bottom: auto;
@@ -284,7 +285,7 @@ body::before {
 }
 
 h1, .sobre-nosotros {
-    font-size: 3rem;
+    font-size: 4rem;
     margin-bottom: 30px;
     color: #fff;
     font-family: 'Dancing Script', cursive;
@@ -365,7 +366,7 @@ h1, .sobre-nosotros {
     }
 
     .sobre-nosotros {
-        font-size: 2rem; /* Reducir el tamaño del título */
+        font-size: 3rem; /* Reducir el tamaño del título */
     }
 }
 
@@ -381,7 +382,7 @@ h1, .sobre-nosotros {
     }
 
     .sobre-nosotros {
-        font-size: 2.5rem; /* Reducir aún más el tamaño del título */
+        font-size: 3rem; /* Reducir aún más el tamaño del título */
     }
 }
 
@@ -804,6 +805,107 @@ h1, .sobre-nosotros {
         font-size: 2rem;
     }
   }
+
+
+  #codigo-de-vestimenta {
+    padding: 40px 20px;
+    background-color: #5e7a51d8;
+    color: #5e7a51d8;
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+    margin-top: 0;
+    border-radius: 8px;
+}
+
+.titulo-seccion {
+    font-size: 4rem;
+    color: #fff;
+    margin-bottom: 10px;
+    font-weight: 500;
+
+}
+
+.descripcion {
+    font-weight: 500;
+    font-size: 2rem;
+    color: #1A1A1A;
+    margin-bottom: 20px;
+}
+
+.contenedor-atuendos {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.atuendo {
+    width: 45%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    border: 1px solid #ddd;
+    transition: transform 0.3s ease-in-out;
+}
+
+.atuendo:hover {
+    transform: scale(1.05);
+}
+
+.atuendo h3 {
+    font-size: 1.5rem;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+.atuendo ul {
+    list-style-type: none;
+    padding-left: 0;
+    color: #555;
+}
+
+.atuendo ul li {
+    margin: 10px 0;
+}
+
+.consejos {
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ddd;
+}
+
+.consejos h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.consejos ul {
+    list-style-type: none;
+    padding-left: 0;
+    color: #555;
+}
+
+.consejos ul li {
+    margin: 10px 0;
+}
+
+/* Efectos de transición */
+#codigo-de-vestimenta {
+    transition: transform 0.3s ease-in-out;
+}
+
+
+
+
+
+
+
 
 
   /*Seccion confirmar asistencia*/
