@@ -1,0 +1,854 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+
+/* Evitar el scroll horizontal */
+html, body {
+    overflow-x: hidden; /* Esto asegura que no haya scroll horizontal */
+    margin: 0; /* Evitar cualquier margen por defecto */
+}
+
+/* Imagen de fondo */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Asegura que ocupe toda la altura */
+    background-size: cover; /* La imagen cubre todo el contenedor */
+    background-position: center center; /* Asegura que la imagen siempre esté centrada */
+    z-index: -1;
+    background-color: #1a3151;
+}
+
+/*Contenedor del carrusel*/
+#imagen-principal .carrusel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+/* Imagenes del carrusel */
+#imagen-principal .carrusel img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra todo el contenedor sin deformarse */
+    opacity: 0;
+    transition: opacity 01s ease-in-out;
+    z-index: 0;
+}
+
+/* Imagen activa del carrusel */
+#imagen-principal .carrusel img.activa {
+    opacity: 1;
+    z-index: 1;
+}
+
+/* Botones del carrusel */
+
+/* Contenedor de la imagen */
+#imagen-principal {
+    position: relative;
+    width: 100%;
+    height: 80vh; /* Puedes ajustar la altura según sea necesario */
+    overflow: hidden; /* Es importante para evitar que la imagen se desborde */
+}
+
+/* La imagen dentro del contenedor */
+#imagen-principal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra todo el contenedor sin deformarse */
+    object-position: center; /* Centra la imagen en el contenedor */
+}
+
+
+
+#cartel-novios {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    position: center;
+    text-align: center;
+
+}
+
+#cartel-novios .contenido-principal {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-family: 'Dancing Script', cursive;
+    color:#fff;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    padding: 1rem;
+    border-radius: 5%;
+    max-width: 70%;
+    max-height: 45%;
+    width: 100%;
+    height: 100%;
+}
+
+#cartel-novios h1 {
+    text-align: center;
+    margin: center;
+    font-size: 5rem;
+    margin-bottom: 1rem;
+}
+
+#cartel-novios .frase {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#cartel-novios .linea-divisora {
+    border: 0;
+    height: 2px;
+    background-color: #fff;
+    margin: 15px auto;
+    width: 80%;
+    opacity: 0.8;
+}
+
+#cartel-novios .fecha {
+    font-size: 1.5rem;
+}
+
+/* Media Queries para hacerlo responsive */
+@media (max-width: 768px) {
+    #cartel-novios h1 {
+        font-size: 3rem;
+    }
+
+    #cartel-novios .frase {
+        font-size: 1.5rem;
+    }
+
+    #cartel-novios .fecha {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    
+
+    #cartel-novios h1 {
+        font-size: 2.5rem;
+    }
+
+    #cartel-novios .frase {
+        font-size: 1.5rem;
+        font-family: 'Dancing Script', cursive;
+        color: #fff;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    #cartel-novios .fecha {
+        font-size: 1rem;
+        font-family: 'Dancing Script', cursive;
+        color: #fff;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    }
+}
+
+
+/*Seccion franja azul*/
+#franja-azul {
+    background-color: #1a3151; /* Azul de fondo */
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.franja1 {
+    max-width: 1200px;
+    padding: 0 15px;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+}
+
+.contenido-franja1 {
+    margin-top:auto;
+    margin-bottom: auto;
+    text-align: center;
+    font-weight: 550;
+}
+
+.mensaje {
+    color: #fff;
+    font-size: 3.5rem;
+    font-family: 'Satisfy', cursive;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+.linea-divisora2 {
+    border: 0;
+    border-top: 2px solid #fff;
+    margin: 10px auto;
+    width: 60%;
+}
+
+/*Disenio de contador*/
+.contador {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.5rem;
+    font-family: 'Satisfy', cursive;
+    color: #fff;
+    text-align: center;
+}
+
+.contador span {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #a7b467;
+}
+
+@media (max-width: 768px) {
+    .mensaje {
+        font-size: 1.5rem; /* Reducir tamaño de fuente en móviles */
+    }
+
+    .contador {
+        font-size: 1.2rem; /* Reducir tamaño del contador en móviles */
+    }
+
+    #franja-azul {
+        padding: 20px 0; /* Reducir espaciado en móviles */
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .linea-divisora2 {
+        width: 80%; /* Hacer la línea divisora más ancha en móviles */
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .mensaje {
+        font-size: 1.2rem; /* Reducir aún más el tamaño del mensaje */
+    }
+
+    .contador {
+        font-size: 1rem; /* Reducir aún más el tamaño del contador */
+    }
+
+    .franja1 {
+        padding: 0 15px;
+    }
+
+    #franja-azul {
+        padding: 20px 0;
+        
+    }
+
+    .linea-divisora2 {
+        width: 90%; /* Hacer la línea divisora aún más ancha en pantallas pequeñas */
+    }
+}
+
+
+
+/*Seccion franja verde*/
+
+#about-us {
+    background-color: #5e7a51d8;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+h1, .sobre-nosotros {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    color: #fff;
+    font-family: 'Dancing Script', cursive;
+
+}
+
+/*Contenedor de las biografias*/
+.contenedor-biografias {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: -20px;
+}
+
+/*Biografia individual*/
+.biografia {
+    background-color: #1a3151dc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 35px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+/*Imagen dentro de la biografia*/
+.foto {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    border-radius: 10%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.texto-biografia {
+    padding: 10px;
+}
+
+.texto-biografia h2 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.texto-biografia p {
+    font-size: 1rem;
+    color: #fff;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+/*Linea divisora*/
+.linea-divisora {
+    border: 0;
+    border-top: 2px solid #fff;
+    width: 80%;
+    margin: 10px auto;
+}
+
+
+/* Estilos responsivos para pantallas pequeñas */
+@media (max-width: 768px) {
+    .contenedor-biografias {
+        flex-direction: column; /* Apilar las biografías en columna */
+        align-items: center; /* Centrar contenido */
+    }
+
+    .biografia {
+        max-width: 60%; /* Ocupa el 90% del ancho disponible */
+    }
+
+    .sobre-nosotros {
+        font-size: 2rem; /* Reducir el tamaño del título */
+    }
+}
+
+@media (max-width: 480px) {
+
+
+    .texto-biografia h2 {
+        font-size: 1.2rem; /* Reducir tamaño del nombre */
+    }
+
+    .texto-biografia p {
+        font-size: 0.9rem; /* Reducir tamaño del texto */
+    }
+
+    .sobre-nosotros {
+        font-size: 2.5rem; /* Reducir aún más el tamaño del título */
+    }
+}
+
+
+
+/*Section historia de amor*/
+
+#historia-de-amor {
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 100  ;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #5e7a51d8;
+} 
+
+
+.love-story {
+    font-family: 'Dancing Script', cursive;
+    color: #fff;
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+
+}
+
+.historia-fila1, .historia-fila2 {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 20px;
+}
+
+
+.historia-texto {
+    flex: 1;
+    padding: 1rem;
+    text-align: left;
+    line-height: 1.5rem;
+}
+
+.historia-texto h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.historia-texto p {
+    font-size: 1.7rem;
+    line-height: 1.5rem;
+    color: black;
+}
+
+.foto-historia {
+    width: 100%;
+    height: 300px;
+    border-radius: 30%;
+    object-fit: cover;
+}
+
+.historia-fila1 {
+    flex-direction: row;
+}
+
+.historia-fila2 {
+    flex-direction: row-reverse;
+}
+
+/* Media queries para dispositivos pequeños */
+@media (max-width: 768px) {
+    .historia-fila1, .historia-fila2 {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .love-story {
+        font-family: 'Dancing Script', cursive;
+        color: #fff;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    
+    }
+
+    .historia-texto h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .historia-texto p {
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .foto-historia {
+        width: 70%;
+        height: 300px;
+        margin-bottom: 1rem;
+        border-radius: 20%;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 480px) {
+    .historia-fila1, .historia-fila2 {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .love-story {
+        font-family: 'Dancing Script', cursive;
+        color: #fff;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    
+    }
+
+    .historia-texto h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .historia-texto p {
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .foto-historia {
+        width: 70%;
+        height: 300px;
+        margin-bottom: 1rem;
+        border-radius: 20%;
+        object-fit: cover;
+    }
+}
+
+/*Seccion galeria*/
+
+#galeria {
+    padding: 2rem;
+    background-color: #5e7a51d8;
+}
+
+.titulo-galeria {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.contenedor-galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.contenedor-galeria img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.contenedor-galeria img:hover{
+    transform:scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Media query: filas de 3 fotos en pantallas pequeñas */
+@media (max-width: 768px) {
+    .contenedor-galeria {
+        grid-template-columns: repeat(4, 1fr); /* Máximo 3 fotos por fila */
+        gap: 0.5rem; /* Reducimos el espacio entre imágenes */
+    }
+}
+
+/* Media query: filas de 2 fotos en pantallas más pequeñas (como móviles) */
+@media (max-width: 480px) {
+    .contenedor-galeria {
+        grid-template-columns: repeat(3, 2fr); /* Máximo 2 fotos por fila */
+        gap: 0.5rem;
+    }
+}
+
+/* Modal: Oculto por defecto */
+.modal {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+    z-index: 1000;
+    overflow: hidden;
+  }
+  
+  /* Imagen dentro del modal */
+  .contenedor-modal {
+    max-width: 85%; /* Máximo 90% del ancho de la ventana */
+    max-height: 75%; /* Máximo 80% del alto de la ventana */
+    margin: auto;
+    display: block;
+    width: auto; /* Ajuste automático según la proporción */
+    height: auto; /* Mantener proporciones */
+    border-radius: 10px; /* Esquinas redondeadas opcionales */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para un efecto elegante */
+    object-fit: contain;
+  }
+  
+  /* Botón para cerrar el modal */
+  .close {
+    position: absolute; /* Posición fija dentro del modal */
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1100; /* Asegurarnos de que esté sobre la imagen */
+  }
+  
+  .close:hover {
+    color: #f1c40f; /* Cambia el color al pasar el mouse */
+  }
+
+/* Media Query: Tablets */
+@media (max-width: 768px) {
+    .contenedor-modal {
+      max-width: 90%;
+      max-height: 80%;
+    }
+  }
+  
+  /* Media Query: Móviles */
+  @media (max-width: 480px) {
+    .contenedor-modal {
+      max-width: 95%;
+      max-height: 85%;
+      border-radius: 8px;
+    }
+  
+    .close {
+      font-size: 24px;
+      top: 10px;
+      right: 15px;
+    }
+  }
+
+
+  /* Sección general */
+#detalles-boda {
+    background-color: #5e7a51d8;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .titulo-detalles {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+  
+  /* Contenedor de tarjetas */
+  .contenedor-tarjetas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  /* Tarjetas individuales */
+  .tarjeta {
+    background-color: #1a3151dc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 280px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .tarjeta:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Imagen de la tarjeta */
+  .imagen-tarjeta {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  /* Título de la tarjeta */
+  .titulo-tarjeta {
+    font-size: 1.5rem;
+    margin: 1rem 0 0.5rem;
+    color: #fff;
+  }
+  
+  /* Descripción de la tarjeta */
+  .descripcion-tarjeta {
+    font-size: 1rem;
+    margin: 0 1rem 1rem;
+    color: #fff;
+  }
+  
+  /* Botón del mapa */
+  .boton-mapa {
+    display: inline-block;
+    margin: 1rem 0 1.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #5e7a51d8;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .boton-mapa:hover {
+    background-color: #5e7a51d8;
+  }
+ /*Crear mediaquerys dependiendo del gusto*/
+
+
+ /*Seccion para la frase en la franja azul */
+
+/* Franja azul */
+.franja-mensaje {
+    background-color: #1a3151; /* Azul principal */
+    color: #fff; /* Texto blanco */
+    text-align: center;
+    padding: 1.5rem 1rem; /* Espaciado interno */
+    font-family: 'Dancing Script', cursive; /* Fuente elegante */
+    font-size: 3rem; /* Tamaño del texto */
+    line-height: 2; /* Altura de línea */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombras sutiles */
+  }
+  
+  /* Mensaje de amor */
+  .mensaje-amor {
+    margin: 0; /* Elimina el margen por defecto */
+    font-style: italic; /* Cursiva para darle un toque romántico */
+    max-width: 800px; /* Limitar el ancho del texto */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  /*Seccion del video*/
+
+  /* Sección del video */
+  #video-yt {
+    background-color: #5e7a51d8;
+    margin-top: 0;
+    padding: 2rem 0; /* Añadimos un poco de padding para que no quede pegado a los bordes */
+  }
+  
+  .video-youtube {
+    display: block;
+    flex-direction: column;
+    align-items: center;         /* Centra el contenido horizontalmente */
+    justify-content: center;     /* Centra el contenido verticalmente */
+    text-align: center;
+    margin: 2rem 1rem;
+    pointer-events: none;
+  }
+  
+  .titulo-video {
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem; /* Tamaño del título */
+    color: #fff;
+    margin-bottom: 2rem; /* Separación del título con el video */
+  }
+  
+  /* Estilos para el iframe del video */
+  .video-embed {
+    pointer-events: auto;
+    display: block;
+    margin: 0 auto;
+    width: 100%;           /* El iframe ocupa el 100% del contenedor */
+    max-width: 800px;      /* El ancho máximo será de 800px */
+    height: 450px;         /* Altura estándar del video */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+  }
+  
+
+  /* Consultas de medios para dispositivos más pequeños */
+@media (max-width: 768px) {
+    .video-embed {
+      height: 300px; /* Reducimos la altura en pantallas pequeñas */
+      max-width: 90%; /* Hacemos que el video ocupe el 90% del ancho disponible */
+    }
+  
+    .titulo-video {
+      font-size: 2rem; /* Reducimos el tamaño de la fuente en móviles */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .video-embed {
+        display: block;
+        height: 200px; /* Reducimos la altura en pantallas móviles */
+        max-width: 90%; 
+    }
+
+    .titulo-video {
+        font-size: 2rem;
+    }
+  }
+
+
+  /*Seccion confirmar asistencia*/
+  #confirmar-asistencia {
+    background-color: #5e7a51d8; /* Fondo claro para la sección */
+    padding: 2rem; /* Espaciado alrededor */
+    text-align: center; /* Centra el contenido */
+}
+
+.confirmacion {
+    max-width: 600px; /* Ancho máximo del contenedor */
+    margin: 0 auto; /* Centra el contenedor */
+    padding: 1.5rem;
+    border: 1px solid #ddd; /* Borde sutil */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.titulo-confirmacion {
+    font-family: 'Dancing Script', cursive; /* Fuente elegante */
+    font-size: 2rem; /* Tamaño del título */
+    color: #333; /* Color del texto */
+    margin-bottom: 1rem;
+}
+
+.texto-confirmacion {
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    color: #555; /* Color de texto más claro */
+    margin-bottom: 2rem; /* Separación con el botón */
+}
+
+.boton-confirmar {
+    display: inline-block; /* Se comporta como un botón */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de texto */
+    color: white; /* Texto blanco */
+    background-color: #25D366; /* Verde WhatsApp */
+    text-decoration: none; /* Sin subrayado */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    transition: background-color 0.3s ease; /* Efecto de transición */
+}
+
+.boton-confirmar:hover {
+    background-color: #1ebd5a; /* Verde más oscuro al pasar el mouse */
+}
