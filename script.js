@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ===============================
 
 // Obtener la fecha de la boda
-const fechaBoda = new Date('2025-01-21T13:57:00').getTime();
+const fechaBoda = new Date('2025-01-30T13:57:00').getTime();
 
 // Seleccionar los elementos del DOM
 const diasEl = document.getElementById('dias');
