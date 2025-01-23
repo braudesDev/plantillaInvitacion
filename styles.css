@@ -967,6 +967,129 @@ h1, .sobre-nosotros {
 
 
 
+/*Seccion galeria de las ultimas 9 fotos subidas*/
+
+ /* Contenedor de la galería de fotos */
+ .galeria-fotos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    gap: 10px; /* Espacio entre las imágenes */
+    margin: 20px auto;
+    max-width: 500px;
+  }
+
+  .galeria-fotos .foto img {
+    width: 100%; /* Hacer que la imagen ocupe todo el espacio del contenedor */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para un efecto moderno */
+  }
+
+
+
+
+
+
+
+  /* Estilo general para la sección subir fotos */
+  #subir-fotos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    background-color: #5e7a51d8;
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
+
+  /* Contenedor de la sección */
+  .contenedor-subir-fotos {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+  }
+
+.texto-titulo {
+    display: flex;
+    margin-top: 5px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem; /* Tamaño del título */
+    color: #fff;
+    margin-bottom: 5rem; 
+}
+
+  /* Título */
+  .titulo-subir-fotos {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Texto descriptivo */
+  .texto-subir-fotos {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  /* Input de archivo */
+  form input[type="file"] {
+    display: block;
+    margin: 0 auto 20px auto;
+    font-size: 1rem;
+    color: #333;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  form input[type="file"]::-webkit-file-upload-button {
+    font-size: 1rem;
+    padding: 8px 15px;
+    background: #dd2476;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  form input[type="file"]::-webkit-file-upload-button:hover {
+    background: #1a3151;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+  }
+
+  /* Botón de enviar */
+  .upload-button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    color: #fff;
+    background: #1a3151;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-top: 10px;
+  }
+
+  .upload-button:hover {
+    background: #dd2476;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+
+
+
+
 
 
 

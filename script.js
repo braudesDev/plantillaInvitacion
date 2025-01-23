@@ -124,3 +124,71 @@ modal.addEventListener("click", (e) => {
     modal.style.display = "none"; // Ocultar el modal si se hace clic fuera de la imagen
   }
 });
+
+
+
+// ======================================
+// Logica para ver fotos en forma de tablero
+// ======================================
+
+
+// Cargar las últimas 9 fotos al cargar la página
+document.addEventListener("DOMContentLoaded", async () => {
+  const galeria = document.querySelector(".galeria-fotos");
+
+  try {
+    const response = await fetch("/latest-photos");
+    const fotos = await response.json();
+
+    // Limpiar la galería y añadir las fotos dinámicamente
+    galeria.innerHTML = fotos
+      .map(
+        (foto) =>
+          `<div class="foto"><img src="${foto.link}" alt="${foto.name}" /></div>`
+      )
+      .join("");
+  } catch (err) {
+    console.error("Error al cargar las fotos:", err);
+  }
+});
+
+
+
+
+
+// ======================================
+// Logica para subir fotos a la pagina web
+// ======================================
+
+document.getElementById('uploadButton').addEventListener('click', async () => {
+  const fileInput = document.getElementById('fileInput');
+  const status = document.getElementById('status');
+
+  if (fileInput.files.length === 0) {
+      status.innerText = 'Por favor, selecciona un archivo.';
+      return;
+  }
+
+  const file = fileInput.files[0];
+  const formData = new FormData();
+  formData.append('file', file);
+
+  status.innerText = 'Subiendo archivo...';
+
+  try {
+      const response = await fetch('/upload', { // Ruta a tu backend
+          method: 'POST',
+          body: formData,
+      });
+      const result = await response.json();
+      if (response.ok) {
+          status.innerText = `Archivo subido. ID: ${result.fileId}`;
+      } else {
+          throw new Error(result.error || 'Error al subir el archivo.');
+      }
+  } catch (error) {
+      status.innerText = `Error: ${error.message}`;
+  }
+});
+
+

@@ -291,13 +291,47 @@
 
 
 
+    <!--Contenedor de las ultimas 9 fotos-->
+    <div class="galeria-fotos">
+        <!-- Aquí se renderizarán dinámicamente las últimas fotos -->
+      </div>
+    
+
+
+
+
 
     
-    <!--Seccion para subir en codigo QR-->
+    <!--Seccion para subir fotos-->
 
-    <section>
-
+    <section id="subir-fotos">
+        <h1 class="texto-titulo">Bienvenidos a la galeria de fotos</h1>
+        <div class="contenedor-subir-fotos">
+            <h1 class="titulo-subir-fotos">Haz que este dia sea inolvidable</h1>
+            <p class="texto-subir-fotos">Haz clic en el botón para subir fotos</p>
+    
+            <!--Formulario para subir fotos-->
+            <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" required />
+                <button type="submit" class="upload-button">Subir Foto</button>
+            </form>
+        </div>
     </section>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
