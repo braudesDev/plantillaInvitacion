@@ -60,11 +60,7 @@ app.post("/upload", async (req, res) => {
   } catch (err) {
     console.error("Error al subir a Drive:", err);
     res.status(500).send("Error al subir el archivo.");
-  }  finally {
-    await fs.promises.unlink(tempFilePath).catch((err) => {
-      console.error("Error al eliminar archivo temporal:", err);
-    });
-  }
+  } 
 });
 
 

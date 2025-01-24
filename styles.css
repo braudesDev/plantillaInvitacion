@@ -990,7 +990,7 @@ h1, .sobre-nosotros {
 
 
 
-  /* Estilo general para la sección subir fotos */
+  /* Estilo general para la sección seleccionar fotos */
   #subir-fotos {
     display: flex;
     flex-direction: column;
@@ -1006,7 +1006,7 @@ h1, .sobre-nosotros {
   .contenedor-subir-fotos {
     text-align: center;
     background: rgba(255, 255, 255, 0.2);
-    padding: 30px;
+    padding-top: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     max-width: 400px;
@@ -1088,6 +1088,88 @@ h1, .sobre-nosotros {
   }
 
 
+  /*Media querys de form subir fotos*/
+  @media (max-width: 768px) {
+
+    .texto-titulo {
+        margin-top: auto;
+        display: flex;
+        text-align: center;
+        font-size: 4rem;
+        margin-bottom: 2rem;
+        margin-top: 10px;
+        
+    }
+
+    .contenedor-subir-fotos {
+        margin-bottom: auto;
+        max-width: 85%;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .titulo-subir-foto {
+        text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .texto-titulo {
+        max-width: 85%;
+        margin-top: 7rem;
+        display: flex;
+        text-align: center;
+        font-size: 3rem;
+        margin-bottom: 2rem;
+
+        
+    }
+
+    .contenedor-subir-fotos {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .titulo-subir-foto {
+        text-align: center;
+    }
+
+  }
+
+
+
+
+  @media (max-width: 374px)  {
+    #subir-fotos {
+        margin-top: auto;
+
+    }
+
+    .texto-titulo {
+        padding: 10px;
+        margin-top: 10rem;
+        display: flex;
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .contenedor-subir-fotos {
+        width: 80%;
+
+        padding: 20px;
+        flex-direction: column;
+        margin-bottom: auto;
+        text-align: center;
+        align-items: center;
+    }
+
+    .titulo-subir-foto {
+        text-align: center;
+    }
+
+  }
+
 
 
 
@@ -1139,3 +1221,51 @@ h1, .sobre-nosotros {
 .boton-confirmar:hover {
     background-color: #1ebd5a; /* Verde más oscuro al pasar el mouse */
 }
+
+
+@media (min-width: 768px) and (max-width: 1812px) {
+    .titulo-confirmacion,
+    .texto-titulo {
+        font-size: 2.5rem;
+    }
+
+    .boton-confirmar,
+    .upload-button {
+        font-size: 1.2rem;
+        padding: 1rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .confirmacion {
+        margin-top: 6rem;
+    }
+}
+
+
+@media (max-width: 390px) {
+    #confirmar-asistencia {
+        margin-top: auto;
+        
+    }
+    #subir-fotos {
+        padding-bottom: 3rem;
+        margin-bottom: auto;
+    }
+
+    .titulo-confirmacion {
+        font-size: 1.6rem;
+    }
+    .texto-titulo {
+        font-size: 1.5rem;
+        margin: auto;
+    }
+
+    .boton-confirmar,
+    .upload-button {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+}
+
