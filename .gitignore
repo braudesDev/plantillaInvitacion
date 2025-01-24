@@ -1,0 +1,21 @@
+# Archivos sensibles
+credentials.json
+token.json
+
+# Node modules
+node_modules/
+
+# Archivos de log
+*.log
+
+# Git directories
+.git/
+
+# Archivos de reportes de BFG (si ya no son necesarios)
+.bfg-report/
+
+# Otros archivos temporales o generados
+*.swp
+*.bak
+
+plantillaInvitacion1.git/
