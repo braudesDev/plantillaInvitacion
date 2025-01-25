@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Satisfy&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://apis.google.com/js/api.js"></script>
 </head>
 <body>
     <!--Seccion imagen de los novios-->
@@ -291,49 +292,31 @@
 
 
 
-    <!--Contenedor de las ultimas 9 fotos-->
-    <div class="galeria-fotos">
-        <!-- Aquí se renderizarán dinámicamente las últimas fotos -->
-      </div>
-    
+
+<!-- NO FUNCIONAL!!!!!!!!!!!!! -->
+    <!-- Contenedor de las ultimas 9 fotos
+    <h1 class="galeria-drive">Galería de Fotos</h1>
+    <div class="gallery" id="photoGallery"></div> -->
 
 
+      
 
-
-
-    
-    <!--Seccion para subir fotos-->
-
-    <section id="subir-fotos">
-        <h1 class="texto-titulo">Bienvenidos a la galeria de fotos</h1>
+      <section id="subir-fotos">
         <div class="contenedor-subir-fotos">
-            <h1 class="titulo-subir-fotos">Haz que este dia sea inolvidable</h1>
-            <p class="texto-subir-fotos">Haz clic en el botón para subir fotos</p>
-    
-            <!--Formulario para subir fotos-->
-            <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
-                <input type="file" name="file" required />
-                <button type="submit" class="upload-button">Subir Foto</button>
-            </form>
+          <div class="texto-titulo">
+            <h1>¡Sube tus fotos!</h1>
+          </div>
+          <p class="titulo-subir-fotos">Selecciona una imagen para subirla</p>
+          <p class="texto-subir-fotos">Puedes elegir una foto desde tu dispositivo para cargarla en nuestro servidor.</p>
+      
+          <!-- Formulario de carga de archivo -->
+          <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <button type="submit" class="upload-button">Subir Foto</button>
+          </form>
         </div>
-    </section>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      </section>
+      
 
       <!--Seccion Confirmacionde asistencia via whatsapp-->
     <section id="confirmar-asistencia">
@@ -351,6 +334,8 @@
 <!--Scripts-->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="script.js"></script>
+    <script src="gallery.js"></script>
+
 </body>
 </html>
 

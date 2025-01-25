@@ -969,20 +969,38 @@ h1, .sobre-nosotros {
 
 /*Seccion galeria de las ultimas 9 fotos subidas*/
 
- /* Contenedor de la galería de fotos */
- .galeria-fotos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-    gap: 10px; /* Espacio entre las imágenes */
-    margin: 20px auto;
-    max-width: 500px;
-  }
+ .galeria-drive {
+        color: #1A1A1A;
+    }
 
-  .galeria-fotos .foto img {
-    width: 100%; /* Hacer que la imagen ocupe todo el espacio del contenedor */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para un efecto moderno */
+.gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      
+.thumbnail {
+        width: 600px;  /* Tamaño de la miniatura, puedes ajustarlo */
+        height: 600px; /* Tamaño de la miniatura */
+        object-fit: cover;  /* Asegura que la imagen se recorte adecuadamente */
+        border-radius: 8px;  /* Bordes redondeados (opcional) */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera (opcional) */
+      }
+
+  #photoGallery img {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
   }
+  
+  #photoGallery img:hover {
+    transform: scale(1.1);
+  }
+  
+ 
 
 
 

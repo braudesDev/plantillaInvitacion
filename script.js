@@ -1,3 +1,5 @@
+
+
 AOS.init();
 
 // You can also pass an optional settings object
@@ -128,29 +130,31 @@ modal.addEventListener("click", (e) => {
 
 
 // ======================================
-// Logica para ver fotos en forma de tablero
+// Logica para ver fotos de drive
 // ======================================
 
+async function loadPhotos() {
+  const response = await fetch("/get-latest-photos");
+  const photos = await response.json();
 
-// Cargar las últimas 9 fotos al cargar la página
-document.addEventListener("DOMContentLoaded", async () => {
-  const galeria = document.querySelector(".galeria-fotos");
+  const gallery = document.getElementById("photoGallery");
+  gallery.innerHTML = ""; // Limpiar la galería antes de cargar nuevas fotos
 
-  try {
-    const response = await fetch("/latest-photos");
-    const fotos = await response.json();
+  photos.forEach((photo) => {
+    const img = document.createElement("img");
+    
+    // Usar el id del archivo para generar la URL de la imagen
+    img.src = `https://drive.google.com/uc?id=${photo.id}`;
+    img.alt = photo.name;
+    
+    img.classList.add('thumbnail'); // Añadir clase para estilo de miniatura
 
-    // Limpiar la galería y añadir las fotos dinámicamente
-    galeria.innerHTML = fotos
-      .map(
-        (foto) =>
-          `<div class="foto"><img src="${foto.link}" alt="${foto.name}" /></div>`
-      )
-      .join("");
-  } catch (err) {
-    console.error("Error al cargar las fotos:", err);
-  }
-});
+    gallery.appendChild(img); // Añadir la imagen a la galería
+  });
+}
+
+loadPhotos(); // Cargar fotos
+
 
 
 
@@ -192,3 +196,12 @@ document.getElementById('uploadButton').addEventListener('click', async () => {
 });
 
 
+
+//Variables de entorno
+
+require('dotenv').config();
+
+const apiKey = process.env.GOOGLE_API_KEY;
+const secretKey = process.env.SECRET_KEY;
+
+console.log(apiKey); // Mostraría tu token si es necesario (no hacerlo en producción)
