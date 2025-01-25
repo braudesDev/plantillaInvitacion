@@ -19,3 +19,5 @@ node_modules/
 *.bak
 
 plantillaInvitacion1.git/.bfg-report/
+
+.env
