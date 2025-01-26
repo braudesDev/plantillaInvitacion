@@ -1,25 +1,25 @@
-require('dotenv').config(); // Carga las variables de entorno desde el archivo .env
+const cloudinary = require("cloudinary").v2;
 
-const cloudinary = require('cloudinary').v2;
-
-// Configuración de Cloudinary con variables de entorno
+// Configuración de Cloudinary usando variables de entorno
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET
+  api_secret: process.env.API_SECRET,
 });
 
 // Función para subir imágenes a Cloudinary
-async function uploadToCloudinary(file) {
+const uploadToCloudinary = async (filePath) => {
   try {
-    const result = await cloudinary.uploader.upload(file.path);
-    return result.secure_url; // URL segura de la imagen
+    const result = await cloudinary.uploader.upload(filePath, {
+      folder: "fotosInvitacion", // Nombre de la carpeta en Cloudinary
+    });
+    return result.secure_url; // URL segura de la imagen subida
   } catch (error) {
     console.error("Error al subir a Cloudinary:", error);
     throw error;
   }
-}
+};
 
 module.exports = {
-  uploadToCloudinary
+  uploadToCloudinary,
 };

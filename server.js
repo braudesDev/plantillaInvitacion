@@ -5,6 +5,7 @@ const path = require("path");
 const { google } = require("googleapis");
 require("dotenv").config(); // Carga dotenv para leer el archivo .env
 const { Readable } = require("stream");
+const cloudinary = require("cloudinary").v2;
 
 const app = express();
 const port = 8080;
@@ -34,27 +35,73 @@ oAuth2Client.setCredentials(token);
 const drive = google.drive({ version: "v3", auth: oAuth2Client });
 
 // Middleware para manejar archivos subidos
-app.use(fileUpload());
+app.use(
+  fileUpload({
+    useTempFiles: true, // Habilita el uso de archivos temporales
+    tempFileDir: "/tmp/", // Carpeta temporal para almacenar archivos
+  })
+);
 
-// Función para listar las últimas 9 fotos de una carpeta en Google Drive
-const listarFotos = async (carpetaId) => {
+
+// Configuración de Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
+
+// Función para subir a Cloudinary
+const uploadToCloudinary = async (filePath) => {
+  const result = await cloudinary.uploader.upload(filePath, {
+    folder: "fotosInvitacion",
+  });
+  return result.secure_url;
+};
+
+// Ruta para subir archivos a Cloudinary y Google Drive simultáneamente
+app.post("/upload-both", async (req, res) => {
+  if (!req.files || !req.files.file) {
+    return res.status(400).send("No se ha subido ningún archivo.");
+  }
+
+  const file = req.files.file;
+
   try {
-    const response = await drive.files.list({
-      q: `'${carpetaId}' in parents and mimeType contains 'image/' and trashed = false`,
-      orderBy: "createdTime desc",
-      pageSize: 9,
-      fields: "files(id, name)",
+    // Subida a Cloudinary
+    const cloudinaryResult = await uploadToCloudinary(file.tempFilePath);
+    console.log("Subida a Cloudinary exitosa:", cloudinaryResult);
+
+    // Subida a Google Drive
+    const readableStream = new Readable();
+    readableStream.push(file.data);
+    readableStream.push(null);
+
+    const media = {
+      mimeType: file.mimetype,
+      body: readableStream,
+    };
+
+    const driveResponse = await drive.files.create({
+      requestBody: {
+        name: file.name,
+        parents: ["1IyqopnWOc8z7xkWwBnElq4MRTGrm8oAJ"], // Reemplaza con el ID de tu carpeta
+      },
+      media: media,
     });
 
-    return response.data.files.map((file) => ({
-      name: file.name,
-      link: `https://drive.google.com/uc?id=${file.id}`, // Usamos el enlace directo a la imagen
-    }));
-  } catch (err) {
-    console.error("Error al listar fotos:", err);
-    throw err;
+    console.log("Subida a Google Drive exitosa:", driveResponse.data.name);
+
+    // Respuesta con ambas URLs
+    res.json({
+      cloudinaryUrl: cloudinaryResult,
+      driveFileName: driveResponse.data.name,
+      message: "Imagen subida a ambos servicios exitosamente",
+    });
+  } catch (error) {
+    console.error("Error al subir los archivos:", error);
+    res.status(500).send("Error al subir los archivos.");
   }
-};
+});
 
 // Ruta para subir archivos a Google Drive
 app.post("/upload", async (req, res) => {
@@ -93,22 +140,6 @@ app.post("/upload", async (req, res) => {
     res.status(500).send("Error al subir el archivo.");
   }
 });
-
-// Ruta para obtener las fotos más recientes
-app.get("/get-latest-photos", async (req, res) => {
-  const carpetaId = "1IyqopnWOc8z7xkWwBnElq4MRTGrm8oAJ"; // Reemplaza con el ID de tu carpeta
-
-  try {
-    const fotos = await listarFotos(carpetaId);
-    res.json(fotos); // Enviar la respuesta como JSON
-  } catch (err) {
-    console.error("Error al obtener fotos:", err);
-    res.status(500).send("Error al obtener las fotos.");
-  }
-});
-
-// Servir archivos estáticos como el HTML y el CSS (este es redundante, puedes eliminarlo si ya lo tienes arriba)
-app.use(express.static("public"));
 
 // Iniciar el servidor
 app.listen(port, () => {

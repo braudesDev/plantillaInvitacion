@@ -128,40 +128,8 @@ modal.addEventListener("click", (e) => {
 });
 
 
-
 // ======================================
-// Logica para ver fotos de drive
-// ======================================
-
-async function loadPhotos() {
-  const response = await fetch("/get-latest-photos");
-  const photos = await response.json();
-
-  const gallery = document.getElementById("photoGallery");
-  gallery.innerHTML = ""; // Limpiar la galería antes de cargar nuevas fotos
-
-  photos.forEach((photo) => {
-    const img = document.createElement("img");
-    
-    // Usar el id del archivo para generar la URL de la imagen
-    img.src = `https://drive.google.com/uc?id=${photo.id}`;
-    img.alt = photo.name;
-    
-    img.classList.add('thumbnail'); // Añadir clase para estilo de miniatura
-
-    gallery.appendChild(img); // Añadir la imagen a la galería
-  });
-}
-
-loadPhotos(); // Cargar fotos
-
-
-
-
-
-
-// ======================================
-// Logica para subir fotos a la pagina web
+// Logica para subir fotos a drive
 // ======================================
 
 document.getElementById('uploadButton').addEventListener('click', async () => {
@@ -193,6 +161,25 @@ document.getElementById('uploadButton').addEventListener('click', async () => {
   } catch (error) {
       status.innerText = `Error: ${error.message}`;
   }
+});
+
+
+
+//cloudinary
+
+const formData = new FormData();
+formData.append("file", fileInput.files[0]);
+
+fetch("/upload", {
+  method: "POST",
+  body: formData,
+})
+.then(response => response.json())
+.then(data => {
+  console.log("Respuesta del servidor:", data);
+})
+.catch(error => {
+  console.error("Error al enviar la solicitud:", error);
 });
 
 
