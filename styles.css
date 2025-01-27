@@ -27,7 +27,7 @@ body::before {
 
 /*Contenedor del carrusel*/
 #imagen-principal .carrusel {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -43,7 +43,7 @@ body::before {
     height: 100%;
     object-fit: cover; /* Asegura que la imagen cubra todo el contenedor sin deformarse */
     opacity: 0;
-    transition: opacity 01s ease-in-out;
+    transition: opacity 1s ease-in-out;
     z-index: 0;
 }
 
@@ -53,8 +53,6 @@ body::before {
     z-index: 1;
 }
 
-/* Botones del carrusel */
-
 /* Contenedor de la imagen */
 #imagen-principal {
     position: relative;
@@ -63,103 +61,69 @@ body::before {
     overflow: hidden; /* Es importante para evitar que la imagen se desborde */
 }
 
-/* La imagen dentro del contenedor */
-#imagen-principal img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Asegura que la imagen cubra todo el contenedor sin deformarse */
-    object-position: center; /* Centra la imagen en el contenedor */
-}
 
-
-
+/* Cartel de los novios */
 #cartel-novios {
     display: flex;
     justify-content: center;
-    height: 100%;
-    position: center;
-    text-align: center;
-
-}
-
-#cartel-novios .contenido-principal {
-    display: flex;
-    flex-direction: column;
+    align-items: center;
     position: absolute;
-    justify-content: center;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 3rem;
-    font-family: 'Dancing Script', cursive;
-    color:#fff;
+    text-align: center;
+    color: #fff;
     background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-    padding: 1rem;
-    border-radius: 5%;
-    max-width: 70%;
-    max-height: 45%;
-    width: 100%;
-    height: 100%;
+    padding: 2rem;
+    border-radius: 1rem;
+    font-family: 'Dancing Script', cursive;
+
 }
 
 #cartel-novios h1 {
-    text-align: center;
-    margin: center;
-    font-size: 5rem;
+    font-size: 4rem;
     margin-bottom: 1rem;
 }
 
-#cartel-novios .frase {
+#cartel-novios .frase, #cartel-novios .fecha {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
+
 }
 
 #cartel-novios .linea-divisora {
     border: 0;
     height: 2px;
     background-color: #fff;
-    margin: 15px auto;
+    margin: 1.5rem auto;
     width: 80%;
-    opacity: 0.8;
 }
 
-#cartel-novios .fecha {
-    font-size: 1.5rem;
-}
 
 /* Media Queries para hacerlo responsive */
+/* Responsividad */
+
+
 @media (max-width: 768px) {
     #cartel-novios h1 {
         font-size: 3rem;
     }
 
-    #cartel-novios .frase {
-        font-size: 1.5rem;
-    }
-
-    #cartel-novios .fecha {
+    #cartel-novios .frase, #cartel-novios .fecha {
         font-size: 1rem;
     }
 }
 
 @media (max-width: 480px) {
-    
+    #cartel-novios {
+        padding: 1.5rem;
+    }
 
     #cartel-novios h1 {
         font-size: 2.5rem;
     }
 
-    #cartel-novios .frase {
-        font-size: 1.5rem;
-        font-family: 'Dancing Script', cursive;
-        color: #fff;
-        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
-    }
-
-    #cartel-novios .fecha {
-        font-size: 1rem;
-        font-family: 'Dancing Script', cursive;
-        color: #fff;
+    #cartel-novios .frase, #cartel-novios .fecha {
+        font-size: 0.9rem;
         text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
     }
 }
@@ -394,9 +358,9 @@ h1, .sobre-nosotros {
 /*Section historia de amor*/
 
 #historia-de-amor {
-    padding: 2rem;
+    padding: 9rem;
     margin: 0 auto;
-    max-width: 100  ;
+    max-width: 1200  ;
     width: 100%;
     box-sizing: border-box;
     background-color: #5e7a51d8;
@@ -417,10 +381,12 @@ h1, .sobre-nosotros {
 
 .historia-fila1, .historia-fila2 {
     display: flex;
+    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
     text-align: center;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center; /* Centra el contenido */
     margin-bottom: 2rem;
-    gap: 20px;
+    gap: 2rem;
 }
 
 
@@ -429,24 +395,36 @@ h1, .sobre-nosotros {
     padding: 1rem;
     text-align: left;
     line-height: 1.5rem;
-}
-
-.historia-texto h2 {
-    font-size: 3rem;
     margin-bottom: 1rem;
 }
 
+.historia-texto h2 {
+    padding-bottom: 10px;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}
+
 .historia-texto p {
-    font-size: 1.7rem;
-    line-height: 1.5rem;
+    text-align: justify;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
     color: black;
+}
+
+.historia-foto img {
+    max-width: 100%;
+    border-radius: 20px; /* Esquinas redondeadas para las imágenes */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Sombra sutil */
 }
 
 .foto-historia {
     width: 100%;
-    height: 300px;
-    border-radius: 30%;
-    object-fit: cover;
+    max-height: 500px; /* Ajusta el máximo según la proporción deseada */
+    border-radius: 20px; /* Cambia el porcentaje según el diseño que prefieras */
+    object-fit: contain; /* Muestra la imagen completa sin recortarla */
+    background-color: #fff; /* Fondo para destacar si las proporciones no coinciden */
+    box-shadow: rgba(0, 0, 0, 0.05);
+
 }
 
 .historia-fila1 {
@@ -455,6 +433,25 @@ h1, .sobre-nosotros {
 
 .historia-fila2 {
     flex-direction: row-reverse;
+}
+
+
+
+@media screen and (min-width: 768px) {
+    .historia-fila1, .historia-fila2 {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .historia-texto {
+        flex: 1;
+        text-align: left;
+    }
+
+    .foto-historia {
+        flex: 1;
+        max-height: 300px; /* Proporción ideal para pantallas más grandes */
+    }
 }
 
 /* Media queries para dispositivos pequeños */
@@ -518,7 +515,7 @@ h1, .sobre-nosotros {
     }
 
     .foto-historia {
-        width: 70%;
+        width: 300%;
         height: 300px;
         margin-bottom: 1rem;
         border-radius: 20%;

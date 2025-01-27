@@ -31,8 +31,11 @@ AOS.init({
 //================================
 //Carrusel de fotos
 //================================
+// Carrusel de fotos
 document.addEventListener("DOMContentLoaded", () => {
   const imagenes = document.querySelectorAll("#imagen-principal .carrusel img");
+  if (imagenes.length === 0) return; // Verifica si hay imágenes antes de ejecutar el carrusel
+
   let indiceActual = 0;
 
   setInterval(() => {
@@ -44,8 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Agregar clase activa a la nueva imagen
       imagenes[indiceActual].classList.add("activa");
-  }, 5000); // Cambiar cada 3 segundos
+  }, 5000); // Cambia cada 5 segundos
 });
+
 
 
 
@@ -92,6 +96,7 @@ function actualizarContador() {
 // Iniciar el contador con actualizaciones cada segundo
 setInterval(actualizarContador, 1000);
 
+
 // ======================================
 // Modal para visualizar imágenes grandes
 // ======================================
@@ -129,59 +134,46 @@ modal.addEventListener("click", (e) => {
 
 
 // ======================================
-// Logica para subir fotos a drive
+// Lógica para subir fotos a Google Drive
 // ======================================
 
-document.getElementById('uploadButton').addEventListener('click', async () => {
-  const fileInput = document.getElementById('fileInput');
-  const status = document.getElementById('status');
+document.getElementById("uploadButton").addEventListener("click", async () => {
+  const fileInput = document.getElementById("fileInput");
+  const status = document.getElementById("status");
 
   if (fileInput.files.length === 0) {
-      status.innerText = 'Por favor, selecciona un archivo.';
-      return;
+    status.innerText = "Por favor, selecciona al menos un archivo.";
+    return;
   }
 
-  const file = fileInput.files[0];
+  const files = Array.from(fileInput.files); // Convertimos FileList a Array
   const formData = new FormData();
-  formData.append('file', file);
 
-  status.innerText = 'Subiendo archivo...';
+  // Agregamos cada archivo al FormData
+  files.forEach((file, index) => {
+    formData.append(`file_${index}`, file); // Clave única para cada archivo
+  });
+
+  status.innerText = "Subiendo archivos...";
 
   try {
-      const response = await fetch('/upload', { // Ruta a tu backend
-          method: 'POST',
-          body: formData,
-      });
-      const result = await response.json();
-      if (response.ok) {
-          status.innerText = `Archivo subido. ID: ${result.fileId}`;
-      } else {
-          throw new Error(result.error || 'Error al subir el archivo.');
-      }
+    const response = await fetch("/upload-multiple", {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      status.innerText = "Archivos subidos exitosamente:\n" + 
+        result.uploadedFiles.map((file) => `- ${file.fileName} (ID: ${file.fileId})`).join("\n");
+    } else {
+      throw new Error(result.error || "Error al subir los archivos.");
+    }
   } catch (error) {
-      status.innerText = `Error: ${error.message}`;
+    status.innerText = `Error: ${error.message}`;
   }
 });
-
-
-
-//cloudinary
-
-const formData = new FormData();
-formData.append("file", fileInput.files[0]);
-
-fetch("/upload", {
-  method: "POST",
-  body: formData,
-})
-.then(response => response.json())
-.then(data => {
-  console.log("Respuesta del servidor:", data);
-})
-.catch(error => {
-  console.error("Error al enviar la solicitud:", error);
-});
-
 
 
 //Variables de entorno
