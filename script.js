@@ -146,35 +146,48 @@ document.getElementById("uploadButton").addEventListener("click", async () => {
     return;
   }
 
-  const files = Array.from(fileInput.files); // Convertimos FileList a Array
   const formData = new FormData();
 
-  // Agregamos cada archivo al FormData
-  files.forEach((file, index) => {
-    formData.append(`file_${index}`, file); // Clave única para cada archivo
+  // Añadir cada archivo al FormData
+  Array.from(fileInput.files).forEach((file) => {
+    formData.append("files", file); // Usa la misma clave "files" para todos
   });
 
-  status.innerText = "Subiendo archivos...";
+// Mostrar el loader y el mensaje
+status.innerHTML = `
+    <div class="status-container">
+    <div class="loader"></div>
+    <p>Subiendo archivos...</p>
+    </div>
+`;
 
-  try {
-    const response = await fetch("/upload-multiple", {
-      method: "POST",
-      body: formData,
-    });
+try {
+  // Mostrar el loader al iniciar la operación
+  const loader = document.querySelector(".loader");
+  loader.classList.remove("hidden"); // Asegúrate de que el loader sea visible
 
-    const result = await response.json();
+  // Hacer la petición para subir los archivos
+  const response = await fetch("/upload-multiple", {
+    method: "POST",
+    body: formData,
+  });
 
-    if (response.ok) {
-      status.innerText = "Archivos subidos exitosamente:\n" + 
-        result.uploadedFiles.map((file) => `- ${file.fileName} (ID: ${file.fileId})`).join("\n");
-    } else {
-      throw new Error(result.error || "Error al subir los archivos.");
-    }
-  } catch (error) {
-    status.innerText = `Error: ${error.message}`;
+  const result = await response.json();
+
+  if (response.ok) {
+    // Ocultar el loader y mostrar el mensaje de éxito
+    loader.classList.add("hidden");
+    const totalArchivos = result.uploadedFiles.length;
+    status.innerText = `Se subieron ${totalArchivos} archivo(s) exitosamente! \n ¡Gracias por ayudarnos a crear una historia eterna!`;
+  } else {
+    throw new Error(result.error || "Error al subir archivos.");
   }
+} catch (error) {
+  // Ocultar el loader y mostrar el mensaje de error
+  document.querySelector(".loader").classList.add("hidden");
+  status.innerText = `Error: ${error.message}`;
+}
 });
-
 
 //Variables de entorno
 

@@ -37,41 +37,52 @@ const upload = multer({
 });
 
 // Ruta para subir archivos a Google Drive
-app.post("/upload", upload.single("file"), async (req, res) => {
-  if (!req.file) {
-    return res.status(400).send("No se subió ningún archivo.");
+app.post("/upload-multiple", upload.array("files"), async (req, res) => {
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).send({ error: "No se subió ningún archivo." });
   }
-
-  const filePath = req.file.path; // Ruta del archivo temporal
-  const fileName = req.file.originalname; // Nombre original del archivo
-  const mimeType = req.file.mimetype; // Tipo MIME del archivo
 
   try {
-    const fileMetadata = {
-      name: fileName,
-      parents: ["1IyqopnWOc8z7xkWwBnElq4MRTGrm8oAJ"], // Reemplaza con el ID de tu carpeta en Drive
-    };
+    const uploadedFiles = [];
 
-    const media = {
-      mimeType: mimeType,
-      body: fs.createReadStream(filePath), // Leer el archivo desde el sistema
-    };
+    for (const file of req.files) {
+      const filePath = file.path; // Ruta del archivo temporal
+      const fileName = file.originalname; // Nombre original del archivo
+      const mimeType = file.mimetype; // Tipo MIME del archivo
 
-    const response = await drive.files.create({
-      requestBody: fileMetadata,
-      media: media,
-      fields: "id",
-    });
+      const fileMetadata = {
+        name: fileName,
+        parents: ["1IyqopnWOc8z7xkWwBnElq4MRTGrm8oAJ"], // Reemplaza con el ID de tu carpeta en Drive
+      };
 
-    // Borra el archivo temporal una vez subido
-    fs.unlinkSync(filePath);
+      const media = {
+        mimeType: mimeType,
+        body: fs.createReadStream(filePath),
+      };
 
-    res.json({ fileId: response.data.id, fileName: fileName });
+      const response = await drive.files.create({
+        requestBody: fileMetadata,
+        media: media,
+        fields: "id",
+      });
+
+      // Borra el archivo temporal después de subirlo
+      fs.unlinkSync(filePath);
+
+      // Agregar datos del archivo subido a la lista
+      uploadedFiles.push({
+        fileId: response.data.id,
+        fileName: fileName,
+      });
+    }
+
+    res.json({ uploadedFiles });
   } catch (err) {
-    console.error("Error al subir a Google Drive:", err.message);
-    res.status(500).send("Error al subir el archivo a Google Drive.");
+    console.error("Error al subir archivos a Google Drive:", err.message);
+    res.status(500).send({ error: "Error al subir archivos a Google Drive." });
   }
 });
+
 
 // Iniciar el servidor
 app.listen(port, () => {

@@ -301,24 +301,37 @@
 
       
 
-      <section id="subir-fotos">
+    <section id="subir-fotos">
         <div class="contenedor-subir-fotos">
-          <div class="texto-titulo">
-            <h1>¡Sube tus fotos!</h1>
-          </div>
-          <p class="titulo-subir-fotos">Selecciona una imagen para subirla</p>
-          <p class="texto-subir-fotos">Puedes elegir una foto desde tu dispositivo para cargarla en nuestro servidor.</p>
-      
-          <!-- Formulario de carga de archivo -->
-          <form action="/upload" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*" required>
-            <button type="submit" class="upload-button">Subir Foto</button>
-          </form>
+            <!-- Título -->
+            <header class="texto-titulo">
+                <h1 class="title-upload-photos">¡Sube tus fotos!</h1>
+            </header>
+    
+            <!-- Descripción -->
+            <div class="texto-subir-fotos">
+                <p class="frase-texto">
+                    "Cada imagen que subas se convertirá en parte de este día inolvidable, 
+                    lleno de amor y momentos únicos!!"
+                </p>
+                <p>Selecciona una foto desde tu dispositivo para compartirla con nosotros.</p>
+            </div>
+    
+            <!-- Formulario de carga de archivo -->
+            <form id="uploadForm" enctype="multipart/form-data">
+                <label for="fileInput">Seleccionar Fotos</label>
+                <input id="fileInput" type="file" name="files" accept="image/*" multiple required>
+                <button id="uploadButton" type="button" class="upload-button">Subir Fotos</button>
+            </form>
+    
+            <!-- Mensaje de estado -->
+            <p id="status"></p>
+            
         </div>
-      </section>
-      
+    </section>
 
-      <!--Seccion Confirmacionde asistencia via whatsapp-->
+
+      <!--Seccion Confirmacion de asistencia via whatsapp-->
     <section id="confirmar-asistencia">
         <div class="confirmacion">
             <h1 class="titulo-confirmacion">Confirmar Asistencia</h1>

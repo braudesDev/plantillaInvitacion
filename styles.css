@@ -581,7 +581,7 @@ h1, .sobre-nosotros {
     
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     position: fixed;
     left: 0;
     top: 0;
@@ -1007,182 +1007,215 @@ h1, .sobre-nosotros {
 
   /* Estilo general para la sección seleccionar fotos */
   #subir-fotos {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
     background-color: #5e7a51d8;
-    font-family: Arial, sans-serif;
-    color: #fff;
   }
 
-  /* Contenedor de la sección */
   .contenedor-subir-fotos {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.2);
-    padding-top: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 100%;
+    display: grid;
+    place-items: center;
   }
 
-.texto-titulo {
-    display: flex;
-    margin-top: 5px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 3rem; /* Tamaño del título */
-    color: #fff;
-    margin-bottom: 5rem; 
+  .title-upload-photos {
+    text-align: center;
+    font-family: 'Dancing Script', sans-serif;
+    font-size: 4.5rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;  
 }
 
-  /* Título */
-  .titulo-subir-fotos {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Texto descriptivo */
   .texto-subir-fotos {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-  }
-
-  /* Input de archivo */
-  form input[type="file"] {
-    display: block;
-    margin: 0 auto 20px auto;
-    font-size: 1rem;
-    color: #333;
-    padding: 10px;
-    background: #fff;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    max-width: 100%;
     text-align: center;
+    font-family: 'Dancing Script', sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding-bottom: 2rem;
+
+    
   }
 
-  form input[type="file"]::-webkit-file-upload-button {
-    font-size: 1rem;
-    padding: 8px 15px;
-    background: #dd2476;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
 
-  form input[type="file"]::-webkit-file-upload-button:hover {
-    background: #1a3151;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transform: scale(1.02);
-  }
+  form {
+    background-color: rgba(255, 255, 255, 0.726);
+    backdrop-filter: blur(10px);/*Aplicacion de desenfoque*/
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    width: 320px;
+    text-align: center;
 
-  /* Botón de enviar */
-  .upload-button {
-    padding: 12px 25px;
-    font-size: 1rem;
-    color: #fff;
-    background: #1a3151;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  }
+  
+  form input[type="file"] {
+    display: none; /* Ocultar input de archivo */
+  }
+  
+  /* Etiqueta personalizada para input */
+  label {
     display: inline-block;
-    margin-top: 10px;
+    background-color: #3E555E;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  label:hover {
+    background-color: #23A8DE;
+    transform: translateY(-2px);
+  }
+  
+  /* Botón de subir */
+  button {
+    background: #894450;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background: #DE2345;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Mensaje de estado */
+  #status {
+    text-align: center;
+    font-family: 'Dancing Script', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
   }
 
-  .upload-button:hover {
-    background: #dd2476;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transform: scale(1.05);
+
+
+/* HTML: <div class="loader"></div> */
+
+.status-container {
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos (loader + texto) estén en columna */
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+    height: 15vh; /* Ocupa toda la pantalla */
+    text-align: center; /* Centra el texto del mensaje */
   }
 
-
-  /*Media querys de form subir fotos*/
-  @media (max-width: 768px) {
-
-    .texto-titulo {
-        margin-top: auto;
-        display: flex;
-        text-align: center;
-        font-size: 4rem;
-        margin-bottom: 2rem;
-        margin-top: 10px;
-        
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    color:#dc1818;
+    background:
+     radial-gradient(circle at 60% 65%, currentColor 62%, #0000 65%) top left,
+     radial-gradient(circle at 40% 65%, currentColor 62%, #0000 65%) top right,
+     linear-gradient(to bottom left, currentColor 42%,#0000 43%) bottom left ,
+     linear-gradient(to bottom right,currentColor 42%,#0000 43%) bottom right;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .loader:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    opacity: 0.4;
+    animation: l3 1s infinite;
+  }
+  @keyframes l3 {
+    to {
+        transform:scale(1.8);
+        opacity: 0;
     }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  /* Ajustes responsivos */
+
+@media (min-width: 768px) and (max-width:1023px) {
 
     .contenedor-subir-fotos {
-        margin-bottom: auto;
-        max-width: 85%;
+        display: flex;
         flex-direction: column;
-        text-align: center;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
     }
-    
-    .titulo-subir-foto {
-        text-align: center;
+
+    .frase-texto {
+        font-size: 3rem;
+
     }
-  }
+
+    .texto-subir-fotos {
+        font-size: 2rem;
+    }
+
+    form {
+        margin-bottom: 2rem;
+    }
+
+    #status {
+        margin-top: 20px; /* Espacio entre el formulario y el mensaje */
+        text-align: center;
+        font-size: 10px;
+    }
+}
+
 
   @media (max-width: 480px) {
-    .texto-titulo {
-        max-width: 85%;
-        margin-top: 7rem;
-        display: flex;
+    form {
+        display: grid;
+        place-items: center;
+        margin-top: 0;
+    }
+
+    .title-upload-photos {
         text-align: center;
-        font-size: 3rem;
-        margin-bottom: 2rem;
-
-        
+        font-family: 'Dancing Script', sans-serif;
+        font-size: 3.5rem;
+        padding-top: 2rem;
+        padding-bottom: 1.5rem;  
     }
 
-    .contenedor-subir-fotos {
-        flex-direction: column;
+    .frase-texto {
+        font-size: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .texto-subir-fotos {
         text-align: center;
+        font-size: 1rem;
+        padding: 25px 25px;
+        padding-bottom: 1.5rem;
     }
 
-    .titulo-subir-foto {
+    #status {
+        padding: 15px 15px;
+        margin-top: 2rem;
         text-align: center;
-    }
-
-  }
-
-
-
-
-  @media (max-width: 374px)  {
-    #subir-fotos {
-        margin-top: auto;
+        font-size: 1.3rem;
+        font-weight: bold;
 
     }
 
-    .texto-titulo {
-        padding: 10px;
-        margin-top: 10rem;
-        display: flex;
-        text-align: center;
-        font-size: 2rem;
-        margin-bottom: 2rem;
+
+  
+    label, button {
+      font-size: 14px;
+      padding: 10px 18px;
     }
-
-    .contenedor-subir-fotos {
-        width: 80%;
-
-        padding: 20px;
-        flex-direction: column;
-        margin-bottom: auto;
-        text-align: center;
-        align-items: center;
-    }
-
-    .titulo-subir-foto {
-        text-align: center;
-    }
-
   }
 
 
@@ -1193,7 +1226,7 @@ h1, .sobre-nosotros {
   /*Seccion confirmar asistencia*/
   #confirmar-asistencia {
     background-color: #5e7a51d8; /* Fondo claro para la sección */
-    padding: 2rem; /* Espaciado alrededor */
+    padding: 5rem; /* Espaciado alrededor */
     text-align: center; /* Centra el contenido */
 }
 
