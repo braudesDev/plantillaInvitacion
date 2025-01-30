@@ -31,7 +31,6 @@ AOS.init({
 //================================
 //Carrusel de fotos
 //================================
-// Carrusel de fotos
 document.addEventListener("DOMContentLoaded", () => {
   const imagenes = document.querySelectorAll("#imagen-principal .carrusel img");
   if (imagenes.length === 0) return; // Verifica si hay imágenes antes de ejecutar el carrusel
@@ -47,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Agregar clase activa a la nueva imagen
       imagenes[indiceActual].classList.add("activa");
-  }, 5000); // Cambia cada 5 segundos
+  }, 4000); // Cambia cada 5 segundos
 });
 
 
@@ -56,6 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // ===============================
 // Contador regresivo para la boda
 // ===============================
+
+// Inicializar AOS
+AOS.init();
 
 // Obtener la fecha de la boda
 const fechaBoda = new Date('2025-01-30T13:57:00').getTime();
@@ -75,7 +77,7 @@ function actualizarContador() {
 
     if (diferencia <= 0) {
         // Mostrar mensaje cuando el evento haya comenzado
-        mensajeEl.textContent = "¡Es Hoy! ¡Es Hoy! ";
+        mensajeEl.textContent = "¡Es Hoy! ¡Es Hoy!";
         contadorEl.style.display = "none"; // Ocultar el contador si prefieres
         return;
     }
@@ -87,14 +89,24 @@ function actualizarContador() {
     const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
 
     // Actualizar el DOM con los valores
-    diasEl.textContent = dias;
-    horasEl.textContent = horas;
-    minutosEl.textContent = minutos;
-    segundosEl.textContent = segundos;
+    actualizarNumero(diasEl, dias);
+    actualizarNumero(horasEl, horas);
+    actualizarNumero(minutosEl, minutos);
+    actualizarNumero(segundosEl, segundos);
+}
+
+// Función para actualizar un número con animación
+function actualizarNumero(elemento, nuevoValor) {
+    if (elemento.textContent != nuevoValor) {
+        elemento.classList.add('cambio'); // Añadir clase para animar
+        setTimeout(() => elemento.classList.remove('cambio'), 200); // Eliminar clase tras la animación
+        elemento.textContent = nuevoValor;
+    }
 }
 
 // Iniciar el contador con actualizaciones cada segundo
 setInterval(actualizarContador, 1000);
+
 
 
 // ======================================

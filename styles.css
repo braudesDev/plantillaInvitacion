@@ -25,6 +25,8 @@ body::before {
     background-color: #1a3151;
 }
 
+
+
 /*Contenedor del carrusel*/
 #imagen-principal .carrusel {
     position: relative;
@@ -62,6 +64,25 @@ body::before {
 }
 
 
+ /* Estilo para el contenedor */
+ .contenedor {
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    height: 10rem; /* Para centrar la animación en la pantalla */
+    background-color: transparent; /* Fondo gris claro */
+    margin-left: 32rem;
+}
+
+/* Estilo para el dotlottie-player */
+dotlottie-player {
+    overflow: hidden;
+}
+
+
+
+
 /* Cartel de los novios */
 #cartel-novios {
     display: flex;
@@ -77,16 +98,18 @@ body::before {
     padding: 2rem;
     border-radius: 1rem;
     font-family: 'Dancing Script', cursive;
+    height: 50%;
+    width: 70%;
 
 }
 
 #cartel-novios h1 {
-    font-size: 4rem;
+    font-size: 8rem;
     margin-bottom: 1rem;
 }
 
 #cartel-novios .frase, #cartel-novios .fecha {
-    font-size: 1.5rem;
+    font-size: 3rem;
 
 }
 
@@ -94,39 +117,51 @@ body::before {
     border: 0;
     height: 2px;
     background-color: #fff;
-    margin: 1.5rem auto;
-    width: 80%;
+    margin: 3rem auto;
+    width: 90%;
 }
 
 
-/* Media Queries para hacerlo responsive */
-/* Responsividad */
-
+/* Para pantallas grandes */
+@media (min-width: 1024px) {
+    #imagen-principal {
+        height: 100vh; /* Ocupa todo el alto de la pantalla */
+    }
+}
 
 @media (max-width: 768px) {
+
     #cartel-novios h1 {
-        font-size: 3rem;
+        font-size: 4rem;
     }
 
     #cartel-novios .frase, #cartel-novios .fecha {
-        font-size: 1rem;
+        font-size: 2rem;
     }
 }
 
 @media (max-width: 480px) {
     #cartel-novios {
         padding: 1.5rem;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        padding-bottom: 4rem;
     }
 
     #cartel-novios h1 {
         font-size: 2.5rem;
+        padding-bottom: 1rem;
     }
 
     #cartel-novios .frase, #cartel-novios .fecha {
-        font-size: 0.9rem;
+        font-size: 1.2rem;
         text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
     }
+
 }
+
+
 
 
 /*Seccion franja azul*/
@@ -183,11 +218,19 @@ body::before {
     text-align: center;
 }
 
+/* Añadir animaciones suaves */
 .contador span {
     font-size: 2.5rem;
     font-weight: bold;
     color: #a7b467;
+    transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
 }
+
+.contador span.cambio {
+    transform: scale(1.8);
+    color: #d9ff00; /* Cambia de color cuando el número cambia */
+}
+
 
 @media (max-width: 768px) {
     .mensaje {
@@ -195,6 +238,7 @@ body::before {
     }
 
     .contador {
+        display: flex;
         font-size: 1.2rem; /* Reducir tamaño del contador en móviles */
     }
 
@@ -216,31 +260,25 @@ body::before {
 }
 
 @media (max-width: 480px) {
-    .mensaje {
-        font-size: 1.2rem; /* Reducir aún más el tamaño del mensaje */
+
+    .mensaje {    
+        font-size: 2.5rem; /* Reducir aún más el tamaño del mensaje */
+        padding-bottom: 1rem;
     }
 
     .contador {
         font-size: 1rem; /* Reducir aún más el tamaño del contador */
-    }
 
-    .franja1 {
-        padding: 0 15px;
-    }
-
-    #franja-azul {
-        padding: 20px 0;
-        
     }
 
     .linea-divisora2 {
-        width: 90%; /* Hacer la línea divisora aún más ancha en pantallas pequeñas */
+        width: 80%; /* Hacer la línea divisora aún más ancha en pantallas pequeñas */
     }
 }
 
 
 
-/*Seccion franja verde*/
+/*Seccion Historia de amor*/
 
 #about-us {
     background-color: #5e7a51d8;
@@ -275,7 +313,7 @@ h1, .sobre-nosotros {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
     padding: 20px;
     text-align: center;
     border-radius: 10px;
@@ -339,7 +377,6 @@ h1, .sobre-nosotros {
 
 @media (max-width: 480px) {
 
-
     .texto-biografia h2 {
         font-size: 1.2rem; /* Reducir tamaño del nombre */
     }
@@ -358,7 +395,7 @@ h1, .sobre-nosotros {
 /*Section historia de amor*/
 
 #historia-de-amor {
-    padding: 9rem;
+    padding: 10rem 10rem;
     margin: 0 auto;
     max-width: 1200  ;
     width: 100%;
@@ -374,7 +411,8 @@ h1, .sobre-nosotros {
     font-family: 'Dancing Script', cursive;
     color: #fff;
     text-align: center;
-    font-size: 3rem;
+    font-size: 3.5rem;
+    margin-top: 1rem;
     margin-bottom: 2rem;
 
 }
@@ -390,19 +428,18 @@ h1, .sobre-nosotros {
 }
 
 
-.historia-texto {
+.historia-texto h2 {
     flex: 1;
     padding: 1rem;
-    text-align: left;
-    line-height: 1.5rem;
+    padding-bottom: 2rem;
+    line-height: 1.5;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
+    text-align: center;
+    font-family: 'Dancing Script', sans-serif;
+    
 }
 
-.historia-texto h2 {
-    padding-bottom: 10px;
-    font-size: 4rem;
-    margin-bottom: 1.5rem;
-}
 
 .historia-texto p {
     text-align: justify;
@@ -419,10 +456,8 @@ h1, .sobre-nosotros {
 
 .foto-historia {
     width: 100%;
-    max-height: 500px; /* Ajusta el máximo según la proporción deseada */
     border-radius: 20px; /* Cambia el porcentaje según el diseño que prefieras */
     object-fit: contain; /* Muestra la imagen completa sin recortarla */
-    background-color: #fff; /* Fondo para destacar si las proporciones no coinciden */
     box-shadow: rgba(0, 0, 0, 0.05);
 
 }
@@ -437,37 +472,24 @@ h1, .sobre-nosotros {
 
 
 
-@media screen and (min-width: 768px) {
-    .historia-fila1, .historia-fila2 {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .historia-texto {
-        flex: 1;
-        text-align: left;
-    }
-
-    .foto-historia {
-        flex: 1;
-        max-height: 300px; /* Proporción ideal para pantallas más grandes */
-    }
-}
 
 /* Media queries para dispositivos pequeños */
 @media (max-width: 768px) {
+
+
     .historia-fila1, .historia-fila2 {
         flex-direction: column;
         text-align: center;
     }
 
-    .love-story {
+    .love-story h1{
         font-family: 'Dancing Script', cursive;
         color: #fff;
         text-align: center;
-        font-size: 2.5rem;
+        font-size: 3.5rem;
+        margin-top: 1rem;
         margin-bottom: 2rem;
-    
+        text-align: center;
     }
 
     .historia-texto h2 {
@@ -480,16 +502,24 @@ h1, .sobre-nosotros {
         font-size: 1rem;
     }
 
-    .foto-historia {
-        width: 70%;
-        height: 300px;
-        margin-bottom: 1rem;
-        border-radius: 20%;
-        object-fit: cover;
+    foto-historia {
+        width: 100%;
+        border-radius: 20px; /* Cambia el porcentaje según el diseño que prefieras */
+        object-fit: contain; /* Muestra la imagen completa sin recortarla */
+        box-shadow: rgba(0, 0, 0, 0.05);
+    
     }
+
+
 }
 
+
 @media (max-width: 480px) {
+
+    #historia-de-amor {
+        padding: 2rem 2rem;
+    }
+
     .historia-fila1, .historia-fila2 {
         flex-direction: column;
         text-align: center;
@@ -500,8 +530,7 @@ h1, .sobre-nosotros {
         color: #fff;
         text-align: center;
         font-size: 2.5rem;
-        margin-bottom: 2rem;
-    
+        margin-bottom: 1rem;
     }
 
     .historia-texto h2 {
@@ -515,11 +544,11 @@ h1, .sobre-nosotros {
     }
 
     .foto-historia {
-        width: 300%;
-        height: 300px;
+        width: 100%; /* Ajusta la imagen al 100% del contenedor */
+        height: auto; /* Mantiene la proporción de la imagen */
         margin-bottom: 1rem;
         border-radius: 20%;
-        object-fit: cover;
+        object-fit: cover; /* Cubre el área del contenedor sin distorsionar */
     }
 }
 
@@ -571,8 +600,15 @@ h1, .sobre-nosotros {
 /* Media query: filas de 2 fotos en pantallas más pequeñas (como móviles) */
 @media (max-width: 480px) {
     .contenedor-galeria {
-        grid-template-columns: repeat(3, 2fr); /* Máximo 2 fotos por fila */
-        gap: 0.5rem;
+        grid-template-columns: repeat(3, 2fr); /* Máximo 3 fotos por fila */
+        gap: 0.4rem;
+    }
+
+    .titulo-galeria {
+        text-align: center;
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+        color: #fff;
     }
 }
 
@@ -659,8 +695,9 @@ h1, .sobre-nosotros {
   
   .titulo-detalles {
     font-size: 3rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     color: #fff;
+
   }
   
   /* Contenedor de tarjetas */
@@ -668,7 +705,7 @@ h1, .sobre-nosotros {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 2.5rem;
   }
   
   /* Tarjetas individuales */
@@ -683,7 +720,7 @@ h1, .sobre-nosotros {
   }
   
   .tarjeta:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
   
   /* Imagen de la tarjeta */
@@ -698,6 +735,8 @@ h1, .sobre-nosotros {
     font-size: 1.5rem;
     margin: 1rem 0 0.5rem;
     color: #fff;
+    padding-bottom: 1rem;
+    font-family: 'Dancing Script', cursive;
   }
   
   /* Descripción de la tarjeta */
@@ -705,6 +744,16 @@ h1, .sobre-nosotros {
     font-size: 1rem;
     margin: 0 1rem 1rem;
     color: #fff;
+  }
+
+  .direccion-tarjeta {
+    color: #fff;
+    padding: 1rem 1rem;
+  }
+
+  .horario-tarjeta {
+    color: #fff;
+    padding: 1rem 1rem;
   }
   
   /* Botón del mapa */
@@ -718,13 +767,77 @@ h1, .sobre-nosotros {
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.5s ease;
+    cursor: pointer;
   }
   
   .boton-mapa:hover {
-    background-color: #5e7a51d8;
+    background-color: #c6ee16be;
+    transform: scale(1.08)
+    
   }
  /*Crear mediaquerys dependiendo del gusto*/
+
+  /* Media query: Tablets */
+  @media (max-width: 768px) {
+
+    .titulo-tarjeta {
+        font-family: 'Dancing Script', cursive;
+    }
+
+    .contenedor-tarjetas {
+      flex-direction: column;
+    }
+
+    .direccion-tarjeta {
+        color: #fff;
+        font-size: 0.7rem;
+        padding: 1rem 1rem;
+    }
+  }
+  
+  /* Media Query: Móviles */
+  @media (max-width: 480px) {
+    .titulo-detalles  {
+        padding-top: 1.5rem;
+        padding-bottom: 0;
+        font-size: 2rem;
+    }
+
+    .contenedor-tarjetas {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .titulo-tarjeta {
+        font-size: 1.4rem;
+        font-family: 'Dancing Script', cursive;
+        margin: 1rem 0 0.5rem;
+        color: #fff;
+        padding-bottom: 1rem;
+        
+    }
+
+    .descripcion-tarjeta {
+        font-size: 0.8rem;
+        margin: 0 1.2rem 1.2rem;
+        color: #fff;
+        text-align: justify;
+        padding-bottom: 1rem;
+    }
+
+    .direccion-tarjeta {
+        color: #fff;
+        font-size: 0.7rem;
+        margin: 0 1rem 1rem;
+      }
+    
+      .horario-tarjeta {
+        color: #fff;
+        font-size: 0.7rem;
+        margin: 0 1rem 1rem;
+      }
+  }
 
 
  /*Seccion para la frase en la franja azul */
@@ -816,145 +929,73 @@ h1, .sobre-nosotros {
   }
 
 
-/*Seccion codigo de veestimenta*/
+/*Seccion codigo de vestimenta*/
 
-  #codigo-de-vestimenta {
-    padding: 40px 20px;
-    background-color: #5e7a51d8;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%231a3151' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: repeat; /* Se repite por toda la pantalla */
-    background-size: auto; 
-    font-family: 'Dancing Script', cursive;
+  /* Estilos básicos de la sección para los invitados */
+/* .guest-outfits {
     text-align: center;
-    margin-top: 0;
-}
-
-.titulo-seccion {
-    font-size: 4rem;
-    color: #fff;
-    margin-bottom: 10px;
-    font-weight: 500;
-
-}
-
-.descripcion {
-    font-weight: 500;
-    font-size: 2rem;
-    color: #1A1A1A;
-    margin-bottom: 20px;
-}
-
-.contenedor-atuendos {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+    background-color: #f9f9f9;
+    padding: 40px 20px;
+    margin: 40px auto;
+    max-width: 1200px;
     border-radius: 8px;
-    }
-
-
-.atuendo-hombre {
-    width: 45%;
-    background-color: #fff;
-    padding: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    text-align: left;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-
-}
-
-/*Seccion atuendo hombre before*/
-
-.atuendo-hombre::before {
-    content: "";
-    display:contents;
-    background-image: url("data:image/svg+xml,%3Csvg%20fill%3D%22%23000000%22%20version%3D%221.1%22%20id%3D%22Capa_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%22199px%22%20height%3D%22199px%22%20viewBox%3D%22-11.5%20-11.5%20118.84%20118.84%22%20xml%3Aspace%3D%22preserve%22%20stroke%3D%22%23000000%22%3E%3Cg%20id%3D%22SVGRepo_bgCarrier%22%20stroke-width%3D%220%22%3E%3Cpath%20transform%3D%22translate%28-11.5%2C%20-11.5%29%2C%20scale%283.7137500000000006%29%22%20d%3D%22M16%2C30.30060423891011C18.230787830979523%2C29.99148775444828%2C20.077917957272874%2C28.419635480049834%2C21.69641314682789%2C26.853608446694523C23.084077224819087%2C25.51092947342692%2C23.39102035556869%2C23.438411686556893%2C24.626086156292217%2C21.9541573665412C26.016710996248463%2C20.28295820855542%2C29.282411895696214%2C19.796258709453756%2C29.376330630105173%2C17.624180593344043C29.473664910406537%2C15.373110436571286%2C25.701146084674274%2C14.72615759539371%2C25.031643449590945%2C12.574749443868019C24.293632919952106%2C10.203195119546098%2C27.365095858134392%2C6.916721117391707%2C25.52507970493106%2C5.248407594393523C23.697129342087717%2C3.5910339325417664%2C20.744897454318416%2C7.0582166063644705%2C18.339739025335483%2C6.507305619442484C15.997627049805935%2C5.97083567036457%2C14.977292708692058%2C1.8201208186687858%2C12.621475260077665%2C2.2927863039610266C10.319700660772185%2C2.7546087633599834%2C11.126846624627298%2C6.979538241565684%2C9.212557448417073%2C8.338561140510947C6.934677758706703%2C9.95571005292728%2C2.350480110914217%2C7.840548873979088%2C1.2130400010794329%2C10.392045784081738C0.11249049788876597%2C12.860789968963585%2C4.441343662355601%2C14.719371101121379%2C5.213263331259304%2C17.309746958814767C5.812139218736497%2C19.319429705827588%2C4.388590566516068%2C21.544038597769493%2C5.121745528585093%2C23.50871691083659C5.904979283357864%2C25.60759429921509%2C7.50976200889757%2C27.369659114190153%2C9.410045324478357%2C28.556109587908843C11.365941466249271%2C29.777282180922647%2C13.716006380040318%2C30.617093359269525%2C16%2C30.30060423891011%22%20fill%3D%22%2300ffff%22%20strokewidth%3D%220%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3Cg%20id%3D%22SVGRepo_tracerCarrier%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3C%2Fg%3E%3Cg%20id%3D%22SVGRepo_iconCarrier%22%3E%20%3Cg%3E%20%3Cg%3E%20%3Cpolygon%20points%3D%2247.918%2C39.699%2052.742%2C12.66%2048.872%2C7.32%2050.771%2C3.511%2045.066%2C3.511%2046.969%2C7.32%2043.093%2C12.66%20%22%3E%3C%2Fpolygon%3E%20%3Cpath%20d%3D%22M75.541%2C86.669h7.621l-1.902-32.388L77.443%2C11.43L59.35%2C3.812l-1.905-3.809l-1.903%2C7.618l-7.623%2C43.807L40.301%2C7.618%20L38.393%2C0L36.49%2C3.809l-18.094%2C7.617l-3.811%2C42.855l-1.902%2C32.388h7.619l6.952-42.032l2.568%2C9.639l-7.621%2C32.045l21.905%2C9.523%20l3.809-18.743l3.807%2C18.743l21.909-9.523l-7.625-32.045l2.57-9.639L75.541%2C86.669z%20M67.999%2C27.259l-7.741%2C1.073l5.119-6.312%20l2.622%2C2.026V27.259z%22%3E%3C%2Fpath%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%3C%2Fsvg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-    width: 80px;
-    height: 80px;
-    margin-right: 20px;
-}
-
-
-.atuendo-mujer {
-    width: 45%;
-    background-color: #fff;
-    padding: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    text-align: left;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-
-
-}
-
-.atuendo-mujer::before {
-    content: "";
-    display: block;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='191px' height='191px' viewBox='0 0 512.00 512.00' fill='%23000000' stroke='%23000000' transform='matrix(1, 0, 0, 1, 0, 0)rotate(0)' stroke-width='0.00512'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0' transform='translate(0,0), scale(1)'%3E%3Cpath transform='translate(0, 0), scale(16)' d='M16,29.712492629885674C19.841367007692604,29.573252983080252,22.162432685448344,25.828648596433357,24.467114667388962,22.752298627858586C26.644090186898172,19.84641459548073,29.15383092388229,16.721680469790577,28.39174614033133,13.171664807170048C27.6218698252284,9.58535389283697,24.14877855786055,7.5326389325254475,20.85388420635205,5.920805589025443C17.52437188425084,4.292037438720454,13.914306682904716,3.1939655366897712,10.399231807205103,4.369885010419617C6.244509435225594,5.7597896690449515,1.8060477289307009,8.269163582119974,0.9756545662661988,12.57079119776681C0.16087943799307136,16.791513802316864,3.8931397947884587,20.162659339316672,6.726525375980602,23.395349235131725C9.320267883016797,26.35462355716524,12.06750889437281,29.85503529022416,16,29.712492629885674' fill='%2300ffff' strokewidth='0'%3E%3C/path%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath fill='%23000000' d='M342.842 462.946c-2.029 31.63-171.708 29.834-173.863 0-6.223-162.824 18.646-224.226 26.506-280.24 1.902-13.533-14.843-37.589-19.016-54.323-8.917-35.36 3.856-66.262-8.917-95.42L185.977 26C196.373 66.568 223.8 95.547 256 95.547c32.201 0 59.627-28.979 70.023-69.547l18.425 6.962c-12.773 29.159 0 60.06-8.917 95.42-4.226 16.735-20.96 40.79-19.016 54.324 7.68 56.025 32.55 117.427 26.327 280.24z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: left;
-    width: 100px;
-    height: 80px;
-    margin-right: 20px;
-}
-
-
-.atuendo-mujer:hover {
-    transform: scale(1.05);
-}
-
-.atuendo-hombre:hover {
-    transform: scale(1.05);
-}
-
-.atuendo h3 {
-    font-size: 1.5rem;
-    color: #000000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .guest-outfits h2 {
+    font-size: 2.5rem;
+    color: #2d2d2d;
     margin-bottom: 15px;
-}
-
-.atuendo ul {
-    list-style-type: none;
-    padding-left: 0;
-    color: #555;
-}
-
-.atuendo ul li {
-    margin: 10px;}
-
-.consejos {
-    margin-top: 40px;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #ddd;
-}
-
-.consejos h3 {
-    font-size: 20px;
+  }
+  
+  .guest-outfits p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .outfits-gallery {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .outfit {
+    width: 30%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  
+  .outfit img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .outfit img:hover {
+    transform: scale(1.05);
+  }
+  
+  .outfit p {
+    font-size: 1.1rem;
     color: #333;
-    margin-bottom: 15px;
-}
-
-.consejos ul {
-    list-style-type: none;
-    padding-left: 0;
-    color: #555;
-}
-
-.consejos ul li {
-    margin: 10px 0;
-}
-
-.consejos:hover {
-    transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
-}
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  
+  @media (max-width: 768px) {
+    .outfits-gallery {
+      flex-direction: column;
+      align-items: center;
+    }
+    .outfit {
+      width: 80%;
+      margin-bottom: 20px;
+    }
+  }
+   */
 
 /*Media queries*/
 
@@ -998,13 +1039,6 @@ h1, .sobre-nosotros {
   }
   
  
-
-
-
-
-
-
-
   /* Estilo general para la sección seleccionar fotos */
   #subir-fotos {
     background-color: #5e7a51d8;
@@ -1096,54 +1130,42 @@ h1, .sobre-nosotros {
   }
 
 
+ /* HTML: <div class="loader"></div> */
+ .loader {
+    padding-bottom: 20px;
+    width: 60px;
+    aspect-ratio: 1;
+    background: linear-gradient(#dc1818 0 0) bottom/100% 0% no-repeat #ccc;
+    -webkit-mask: 
+      radial-gradient(circle at 60% 65%, #000 62%, #0000 65%) top left, 
+      radial-gradient(circle at 40% 65%, #000 62%, #0000 65%) top right, 
+      linear-gradient(to bottom left, #000 42%,#0000 43%) bottom left , 
+      linear-gradient(to bottom right,#000 42%,#0000 43%) bottom right;
+    -webkit-mask-size: 50% 50%;
+    -webkit-mask-repeat: no-repeat;
+    animation: l19 2s infinite linear;
+  }
+  @keyframes l19 {
+      90%,100% {background-size:100% 100%}
+  }
 
-/* HTML: <div class="loader"></div> */
 
 .status-container {
     display: flex;
-    flex-direction: column; /* Asegura que los elementos (loader + texto) estén en columna */
-    align-items: center; /* Centra horizontalmente */
-    justify-content: center; /* Centra verticalmente */
-    height: 15vh; /* Ocupa toda la pantalla */
-    text-align: center; /* Centra el texto del mensaje */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
   }
 
-.loader {
-    width: 50px;
-    aspect-ratio: 1;
-    color:#dc1818;
-    background:
-     radial-gradient(circle at 60% 65%, currentColor 62%, #0000 65%) top left,
-     radial-gradient(circle at 40% 65%, currentColor 62%, #0000 65%) top right,
-     linear-gradient(to bottom left, currentColor 42%,#0000 43%) bottom left ,
-     linear-gradient(to bottom right,currentColor 42%,#0000 43%) bottom right;
-    background-size: 50% 50%;
-    background-repeat: no-repeat;
-    position: relative;
-    margin-bottom: 1rem;
-  }
-  .loader:after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: inherit;
-    opacity: 0.4;
-    animation: l3 1s infinite;
-  }
-  @keyframes l3 {
-    to {
-        transform:scale(1.8);
-        opacity: 0;
-    }
-  }
-
-  .hidden {
-    display: none;
-  }
-
+  
   /* Ajustes responsivos */
 
 @media (min-width: 768px) and (max-width:1023px) {
+
+    .loader {
+        margin-top: 1rem;
+    }
 
     .contenedor-subir-fotos {
         display: flex;
@@ -1155,11 +1177,13 @@ h1, .sobre-nosotros {
 
     .frase-texto {
         font-size: 3rem;
+        padding-bottom: 3rem;
 
     }
 
     .texto-subir-fotos {
         font-size: 2rem;
+        padding-bottom: 3rem;
     }
 
     form {
@@ -1175,6 +1199,10 @@ h1, .sobre-nosotros {
 
 
   @media (max-width: 480px) {
+
+    .loader {
+        margin-top: 10px;
+    }
     form {
         display: grid;
         place-items: center;

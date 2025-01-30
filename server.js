@@ -33,7 +33,7 @@ const drive = google.drive({ version: "v3", auth: oAuth2Client });
 
 // Configuración de multer para subir archivos
 const upload = multer({
-  dest: "uploads/", // Carpeta donde se guardarán los archivos temporalmente
+  limits: {fileSize: 10 * 1024 * 1024 }, dest: "uploads/", // Carpeta donde se guardarán los archivos temporalmente
 });
 
 // Ruta para subir archivos a Google Drive
