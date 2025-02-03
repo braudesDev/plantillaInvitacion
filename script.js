@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 AOS.init();
 
 // Obtener la fecha de la boda
-const fechaBoda = new Date('2025-01-30T13:57:00').getTime();
+const fechaBoda = new Date('2025-02-15T13:57:00').getTime();
 
 // Seleccionar los elementos del DOM
 const diasEl = document.getElementById('dias');
@@ -97,7 +97,7 @@ function actualizarContador() {
 
 // Función para actualizar un número con animación
 function actualizarNumero(elemento, nuevoValor) {
-    if (elemento.textContent != nuevoValor) {
+    if (elemento.textContent !== nuevoValor.toString()) {
         elemento.classList.add('cambio'); // Añadir clase para animar
         setTimeout(() => elemento.classList.remove('cambio'), 200); // Eliminar clase tras la animación
         elemento.textContent = nuevoValor;
@@ -152,60 +152,56 @@ modal.addEventListener("click", (e) => {
 document.getElementById("uploadButton").addEventListener("click", async () => {
   const fileInput = document.getElementById("fileInput");
   const status = document.getElementById("status");
-
+  
+  // Validar si se seleccionaron archivos
   if (fileInput.files.length === 0) {
-    status.innerText = "Por favor, selecciona al menos un archivo.";
-    return;
+      status.innerText = "Por favor, selecciona al menos un archivo.";
+      return;
   }
 
+  // Validar el número de archivos seleccionados
+  if (fileInput.files.length > 5) {
+      status.innerText = "¡Recuerda que solo puedes seleccionar un máximo de 5 archivos a la vez! :)";
+      return;
+  }
+
+  // Validar si el tamaño total de los archivos es mayor al límite
+  const totalSize = Array.from(fileInput.files).reduce((total, file) => total + file.size, 0);
+  const maxSize = 50 * 1024 * 1024; // 50 MB en bytes
+  if (totalSize > maxSize) {
+      status.innerText = "¡El tamaño total de los archivos no debe superar los 50 MB!";
+      return;
+  }
+
+  // Preparar la subida de archivos
   const formData = new FormData();
-
-  // Añadir cada archivo al FormData
   Array.from(fileInput.files).forEach((file) => {
-    formData.append("files", file); // Usa la misma clave "files" para todos
+      formData.append("files", file);
   });
 
-// Mostrar el loader y el mensaje
-status.innerHTML = `
-    <div class="status-container">
-    <div class="loader"></div>
-    <p>Subiendo archivos...</p>
-    </div>
-`;
+  // Mostrar mensaje de subida
+  status.innerHTML = `
+      <div class="status-container">
+          <div class="loader"></div>
+          <p>Subiendo archivos...</p>
+      </div>
+  `;
 
-try {
-  // Mostrar el loader al iniciar la operación
-  const loader = document.querySelector(".loader");
-  loader.classList.remove("hidden"); // Asegúrate de que el loader sea visible
+  try {
+      // Llamar al endpoint de subida sin necesidad de token
+      const response = await fetch("/upload-multiple", {
+          method: "POST",
+          body: formData
+      });
 
-  // Hacer la petición para subir los archivos
-  const response = await fetch("/upload-multiple", {
-    method: "POST",
-    body: formData,
-  });
+      const result = await response.json();
 
-  const result = await response.json();
-
-  if (response.ok) {
-    // Ocultar el loader y mostrar el mensaje de éxito
-    loader.classList.add("hidden");
-    const totalArchivos = result.uploadedFiles.length;
-    status.innerText = `Se subieron ${totalArchivos} archivo(s) exitosamente! \n ¡Gracias por ayudarnos a crear una historia eterna!`;
-  } else {
-    throw new Error(result.error || "Error al subir archivos.");
+      if (response.ok) {
+          status.innerText = `¡${result.uploadedFiles.length} archivo(s) subido(s) exitosamente!`;
+      } else {
+          throw new Error(result.error || "Error en el servidor");
+      }
+  } catch (error) {
+      status.innerText = `Error: ${error.message}`;
   }
-} catch (error) {
-  // Ocultar el loader y mostrar el mensaje de error
-  document.querySelector(".loader").classList.add("hidden");
-  status.innerText = `Error: ${error.message}`;
-}
 });
-
-//Variables de entorno
-
-require('dotenv').config();
-
-const apiKey = process.env.GOOGLE_API_KEY;
-const secretKey = process.env.SECRET_KEY;
-
-console.log(apiKey); // Mostraría tu token si es necesario (no hacerlo en producción)

@@ -2,89 +2,93 @@ const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
-const { google } = require("googleapis");
-require("dotenv").config(); // Carga las variables del archivo .env
+const cors = require("cors");
+const driveService = require("./driveService"); // Asegúrate de que driveService.js esté en el mismo directorio
+require("dotenv").config();
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
-// Servir archivos estáticos (index.html, styles.css, etc.)
-app.use(express.static(path.join(__dirname)));
+// Configuración de CORS (ajusta FRONTEND_URL si es necesario)
+app.use(cors({
+  origin: "*", // Permitir todos los orígenes
+  credentials: true
+}));
 
-// Configurar Google OAuth2
-const oAuth2Client = new google.auth.OAuth2(
-  process.env.WEB_CLIENT_ID,
-  process.env.WEB_CLIENT_SECRET,
-  process.env.WEB_REDIRECT_URIS
-);
+app.use(express.json());
 
-const token = {
-  access_token: process.env.ACCESS_TOKEN,
-  refresh_token: process.env.REFRESH_TOKEN,
-  scope: process.env.SCOPE,
-  token_type: process.env.TOKEN_TYPE,
-  expiry_date: process.env.EXPIRY_DATE,
-};
-
-oAuth2Client.setCredentials(token);
-
-// Configura la API de Google Drive
-const drive = google.drive({ version: "v3", auth: oAuth2Client });
-
-// Configuración de multer para subir archivos
-const upload = multer({
-  limits: {fileSize: 10 * 1024 * 1024 }, dest: "uploads/", // Carpeta donde se guardarán los archivos temporalmente
+// SERVICIO DE ARCHIVOS ESTÁTICOS
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+app.get("/script.js", (req, res) => {
+  res.sendFile(path.join(__dirname, "script.js"));
+});
+app.get("/styles.css", (req, res) => {
+  res.sendFile(path.join(__dirname, "styles.css"));
 });
 
-// Ruta para subir archivos a Google Drive
-app.post("/upload-multiple", upload.array("files"), async (req, res) => {
-  if (!req.files || req.files.length === 0) {
-    return res.status(400).send({ error: "No se subió ningún archivo." });
+// Configuración de multer con validación de tipos de archivo
+const upload = multer({
+  dest: "uploads/",
+  limits: { fileSize: 50 * 1024 * 1024 }, // Límite de 50 MB
+  fileFilter: (req, file, cb) => {
+    const validMimes = ["image/jpeg", "image/png", "image/gif"];
+    cb(null, validMimes.includes(file.mimetype));
   }
+}).array("files", 15); // Máximo 10 archivos
 
-  try {
-    const uploadedFiles = [];
+// Endpoint para subir archivos a Drive sin autenticación del usuario
+app.post("/upload-multiple", (req, res) => {
+  upload(req, res, async (err) => {
+    try {
+      if (err) {
+        return res.status(400).json({ error: "Error en la subida de archivos: " + err.message });
+      }
+      if (!req.files || !req.files.length) {
+        return res.status(400).json({ error: "No se han enviado archivos." });
+      }
 
-    for (const file of req.files) {
-      const filePath = file.path; // Ruta del archivo temporal
-      const fileName = file.originalname; // Nombre original del archivo
-      const mimeType = file.mimetype; // Tipo MIME del archivo
+      const uploadResults = await Promise.all(
+        req.files.map(async file => {
+          const result = await driveService.subirArchivo(file.path);
+          fs.unlinkSync(file.path); // Eliminar el archivo temporal
+          return result;
+        })
+      );
 
-      const fileMetadata = {
-        name: fileName,
-        parents: ["1IyqopnWOc8z7xkWwBnElq4MRTGrm8oAJ"], // Reemplaza con el ID de tu carpeta en Drive
-      };
-
-      const media = {
-        mimeType: mimeType,
-        body: fs.createReadStream(filePath),
-      };
-
-      const response = await drive.files.create({
-        requestBody: fileMetadata,
-        media: media,
-        fields: "id",
+      res.json({ uploadedFiles: uploadResults });
+    } catch (error) {
+      // Si hay error, eliminar archivos temporales si existen
+      req.files?.forEach(file => {
+        if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
       });
 
-      // Borra el archivo temporal después de subirlo
-      fs.unlinkSync(filePath);
-
-      // Agregar datos del archivo subido a la lista
-      uploadedFiles.push({
-        fileId: response.data.id,
-        fileName: fileName,
+      res.status(500).json({
+        error: "Error en la subida de archivos",
+        details: process.env.NODE_ENV === "development" ? error.message : null
       });
     }
+  });
+});
 
-    res.json({ uploadedFiles });
-  } catch (err) {
-    console.error("Error al subir archivos a Google Drive:", err.message);
-    res.status(500).send({ error: "Error al subir archivos a Google Drive." });
+// (Opcional) Endpoint para listar archivos en Drive
+app.get("/files", async (req, res) => {
+  try {
+    const files = await driveService.listarFotos(process.env.GOOGLE_DRIVE_FOLDER_ID);
+    res.json({ files });
+  } catch (error) {
+    res.status(500).json({ error: "Error obteniendo archivos" });
   }
 });
 
+// Middleware para manejo global de errores
+app.use((err, req, res, next) => {
+  console.error("Error global:", err);
+  res.status(500).json({ error: "Error interno del servidor" });
+});
 
 // Iniciar el servidor
 app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
+  console.log(`🚀 Servidor listo en: http://localhost:${port}`);
 });

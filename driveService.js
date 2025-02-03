@@ -1,91 +1,126 @@
 const { google } = require("googleapis");
-require("dotenv").config();
+const fs = require("fs");
+const dotenv = require("dotenv");
+const path = require("path");
 
-// Configurar cliente OAuth2
+dotenv.config();
+
+// Scopes necesarios para acceder a Google Drive
+const SCOPES = [
+  'https://www.googleapis.com/auth/drive.file',  // Acceso solo a archivos creados por la app
+  'https://www.googleapis.com/auth/drive'        // Acceso completo a Google Drive
+];
+
+// Configuración de OAuth2
 const oAuth2Client = new google.auth.OAuth2(
-  process.env.WEB_CLIENT_ID,
-  process.env.WEB_CLIENT_SECRET,
-  process.env.WEB_REDIRECT_URIS
+  process.env.GOOGLE_CLIENT_ID,     // ID de cliente
+  process.env.GOOGLE_CLIENT_SECRET, // Secreto de cliente
+  process.env.REDIRECT_URI         // URI de redirección configurada en Google Cloud
 );
 
-// Configurar tokens
-const token = {
-  access_token: process.env.ACCESS_TOKEN,
-  refresh_token: process.env.REFRESH_TOKEN,
-  scope: process.env.SCOPE,
-  token_type: process.env.TOKEN_TYPE,
-  expiry_date: process.env.EXPIRY_DATE,
-};
-
-oAuth2Client.setCredentials(token);
+// Asignar credenciales preconfiguradas (al menos el refresh_token)
+oAuth2Client.setCredentials({
+  refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
+});
 
 // Crear cliente de Google Drive
 const drive = google.drive({ version: "v3", auth: oAuth2Client });
 
-/**
- * Función para subir un archivo a Google Drive
- * @param {string} fileName - Nombre del archivo.
- * @param {string} mimeType - Tipo MIME del archivo (ej., 'image/jpeg').
- * @param {Buffer} fileData - Datos del archivo (como Buffer o Stream).
- * @param {string} folderId - ID de la carpeta de Google Drive (opcional).
- */
-async function subirArchivo(fileName, mimeType, fileData, folderId = null) {
+// Función para renovar el token de acceso si es necesario
+async function refreshAccessToken() {
   try {
+    // Asegurar que siempre haya un refresh_token
+    if (!oAuth2Client.credentials.refresh_token) {
+      oAuth2Client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
+    }
+
+    const { token } = await oAuth2Client.getAccessToken();
+    if (!token) throw new Error("❌ No se pudo obtener un nuevo access_token.");
+
+    console.log("✅ Token renovado correctamente.");
+    return token;
+  } catch (error) {
+    console.error("❌ Error al renovar el token:", error.message);
+    throw error;
+  }
+}
+
+// Función para subir un archivo a Google Drive
+async function subirArchivo(filePath, folderId = process.env.GOOGLE_DRIVE_FOLDER_ID) {
+  try {
+    const accessToken = await refreshAccessToken(); // Renueva token antes de subir archivo
+    oAuth2Client.setCredentials({ access_token: accessToken });
+
+    const fileName = path.basename(filePath);
+    const mimeType = getMimeType(fileName);
+
     const fileMetadata = {
       name: fileName,
-      parents: folderId ? [folderId] : [], // Agrega el archivo a la carpeta si folderId existe
+      parents: folderId ? [folderId] : []
     };
 
     const media = {
-      mimeType: mimeType,
-      body: fileData, // Puede ser un ReadStream o Buffer
+      mimeType,
+      body: fs.createReadStream(filePath)
     };
 
     const response = await drive.files.create({
       requestBody: fileMetadata,
-      media: media,
-      fields: "id, name",
+      media,
+      fields: "id, name, webViewLink, webContentLink"
     });
 
-    console.log(`Archivo subido con éxito. ID: ${response.data.id}`);
-    return response.data;
+    console.log("✅ Archivo subido con éxito:", response.data.name);
+    return {
+      id: response.data.id,
+      name: response.data.name,
+      url: response.data.webViewLink || response.data.webContentLink
+    };
   } catch (error) {
-    console.error("Error al subir archivo:", error.message);
+    console.error("❌ Error subiendo archivo:", error.response ? error.response.data : error.message);
     throw error;
   }
 }
 
-/**
- * Función para listar archivos en Google Drive
- * @param {string} folderId - ID de la carpeta (opcional).
- */
-async function listarFotos(folderId = null) {
+// Función para listar archivos de Google Drive
+async function listarFotos(folderId = null, pageSize = 10) {
   try {
-    const query = folderId ? `'${folderId}' in parents` : ""; // Filtra por carpeta si se proporciona un ID
+    await refreshAccessToken(); // Renueva el token antes de listar archivos
+
+    const query = folderId ? `'${folderId}' in parents` : "";
     const response = await drive.files.list({
       q: query,
-      fields: "files(id, name)",
+      pageSize,
+      fields: "files(id, name, webViewLink, webContentLink), nextPageToken"
     });
 
-    if (response.data.files.length === 0) {
-      console.log("No se encontraron archivos.");
-      return [];
-    }
-
-    console.log("Archivos encontrados:");
-    response.data.files.forEach((file) => {
-      console.log(`- ${file.name} (ID: ${file.id})`);
-    });
-
-    return response.data.files;
+    return response.data.files.map(file => ({
+      id: file.id,
+      name: file.name,
+      url: file.webViewLink || file.webContentLink
+    }));
   } catch (error) {
-    console.error("Error al listar archivos:", error.message);
+    console.error("❌ Error listando archivos:", error.message || error);
     throw error;
   }
 }
 
-// Exportar funciones
+// Helper para determinar el MIME type según la extensión del archivo
+function getMimeType(filename) {
+  const extension = filename.split('.').pop().toLowerCase();
+  const mimeTypes = {
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    png: 'image/png',
+    gif: 'image/gif',
+    pdf: 'application/pdf',
+    txt: 'text/plain'
+  };
+  return mimeTypes[extension] || 'application/octet-stream'; // Retorna tipo por defecto si no encuentra
+}
+
 module.exports = {
   subirArchivo,
   listarFotos,
+  refreshAccessToken
 };

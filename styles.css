@@ -207,6 +207,9 @@ dotlottie-player {
     width: 60%;
 }
 
+
+
+
 /*Disenio de contador*/
 .contador {
     display: flex;
@@ -261,6 +264,14 @@ dotlottie-player {
 
 @media (max-width: 480px) {
 
+    #contador {
+      font-size: 12px;
+    }
+
+    .franja1 {
+      padding: 1rem 1rem;
+    }
+
     .mensaje {    
         font-size: 2.5rem; /* Reducir aún más el tamaño del mensaje */
         padding-bottom: 1rem;
@@ -273,6 +284,7 @@ dotlottie-player {
 
     .linea-divisora2 {
         width: 80%; /* Hacer la línea divisora aún más ancha en pantallas pequeñas */
+        padding-bottom: 1rem;
     }
 }
 
@@ -614,61 +626,85 @@ h1, .sobre-nosotros {
 
 /* Modal: Oculto por defecto */
 .modal {
-    
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-    box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
-    z-index: 1000;
-    overflow: hidden;
+  display: flex;
+  flex-direction: column; /* Coloca elementos uno debajo del otro */
+  justify-content: center;
+  align-items: center; /* Centra horizontalmente */
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px); /* Efecto de desenfoque */
+  z-index: 1000;
+  overflow: hidden;
+  padding-top: 8rem;
   }
   
   /* Imagen dentro del modal */
   .contenedor-modal {
-    max-width: 85%; /* Máximo 90% del ancho de la ventana */
-    max-height: 75%; /* Máximo 80% del alto de la ventana */
+    max-width: 90%; /* Máximo 90% del ancho de la ventana */
+    max-height: 80%; /* Máximo 80% del alto de la ventana */
     margin: auto;
     display: block;
-    width: auto; /* Ajuste automático según la proporción */
-    height: auto; /* Mantener proporciones */
     border-radius: 10px; /* Esquinas redondeadas opcionales */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para un efecto elegante */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para un efecto elegante */
     object-fit: contain;
   }
   
   /* Botón para cerrar el modal */
   .close {
-    position: absolute; /* Posición fija dentro del modal */
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 30px;
+    margin-top: 80px; /* Espaciado entre la imagen y el botón */
+    margin-left: 49%;
+    color: black;
+    font-size: 60px; /* Tamaño del texto */
     font-weight: bold;
     cursor: pointer;
-    z-index: 1100; /* Asegurarnos de que esté sobre la imagen */
+    z-index: 1100;
+    width: 70px; /* Tamaño del botón circular */
+    height: 70px;
+    background-color: rgba(255, 255, 255, 0.527); /* Fondo semitransparente */
+    border-radius: 50%; /* Hacerlo circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    align-self: center; /* Centrar el botón horizontalmente */
   }
   
   .close:hover {
-    color: #f1c40f; /* Cambia el color al pasar el mouse */
+    background-color: rgba(255, 230, 0, 0.644); /* Cambiar el fondo al pasar el mouse */
+    color: rgba(0, 0, 0, 0.815); /* Cambia el color de la 'X' */
+    transform: scale(1.5); /* Agranda ligeramente el botón al pasar el mouse */
   }
 
 /* Media Query: Tablets */
 @media (max-width: 768px) {
+
+  .modal {
+    padding-top: 5rem;
+  }
+
     .contenedor-modal {
       max-width: 90%;
       max-height: 80%;
+    }
+
+    .close {
+      margin-top: 30px;
     }
   }
   
   /* Media Query: Móviles */
   @media (max-width: 480px) {
+
+    .modal {
+      padding-top: 5rem;
+    }
+
     .contenedor-modal {
       max-width: 95%;
       max-height: 85%;
@@ -676,7 +712,11 @@ h1, .sobre-nosotros {
     }
   
     .close {
-      font-size: 24px;
+      margin-top: 43px;
+      margin-left: 44%;
+      font-size: 40px;
+      width: 50px;
+      height: 50px;
       top: 10px;
       right: 15px;
     }
@@ -1038,6 +1078,9 @@ h1, .sobre-nosotros {
     transform: scale(1.1);
   }
   
+
+
+
  
   /* Estilo general para la sección seleccionar fotos */
   #subir-fotos {
@@ -1163,9 +1206,14 @@ h1, .sobre-nosotros {
 
 @media (min-width: 768px) and (max-width:1023px) {
 
+  .title-upload-photos {
+
+  }
+
     .loader {
         margin-top: 1rem;
     }
+
 
     .contenedor-subir-fotos {
         display: flex;
@@ -1184,6 +1232,7 @@ h1, .sobre-nosotros {
     .texto-subir-fotos {
         font-size: 2rem;
         padding-bottom: 3rem;
+
     }
 
     form {
@@ -1200,9 +1249,11 @@ h1, .sobre-nosotros {
 
   @media (max-width: 480px) {
 
-    .loader {
-        margin-top: 10px;
+    .contenedor-form {
+      padding-bottom: 5rem;
     }
+
+
     form {
         display: grid;
         place-items: center;
@@ -1214,26 +1265,32 @@ h1, .sobre-nosotros {
         font-family: 'Dancing Script', sans-serif;
         font-size: 3.5rem;
         padding-top: 2rem;
-        padding-bottom: 1.5rem;  
-    }
-
-    .frase-texto {
-        font-size: 1.5rem;
-        padding-bottom: 1.5rem;
+        padding-bottom: 1rem;  
+        margin-bottom: 1rem;
     }
 
     .texto-subir-fotos {
-        text-align: center;
-        font-size: 1rem;
-        padding: 25px 25px;
-        padding-bottom: 1.5rem;
+      padding: 1.2rem 1.2rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .frase-texto {
+        font-size: 1.8rem;
+        padding-bottom: 2rem;
+        font-weight: bold;
+    }
+
+    .texto-info {
+      font-size: 0.9rem;
+      font-family: 'sans-serif';
+      font-weight: lighter;
     }
 
     #status {
         padding: 15px 15px;
-        margin-top: 2rem;
+        margin-top: 1.5rem;
         text-align: center;
-        font-size: 1.3rem;
+        font-size: 1.5rem;
         font-weight: bold;
 
     }

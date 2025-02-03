@@ -205,8 +205,8 @@
         </div>
 
         <div class="modal">
-            <span class="close">&times;</span>
             <img class="contenedor-modal" id="imagenModal">
+            <span class="close">&times;</span>
         </div>
     </section>
 
@@ -317,18 +317,22 @@
                     "Cada imagen que subas se convertirá en parte de este día inolvidable, 
                     lleno de amor y momentos únicos!!"
                 </p>
-                <p>Selecciona una foto desde tu dispositivo para compartirla con nosotros.</p>
+                <p class="texto-info">
+                    Toma una foto o seleccionala desde tu dispositivo para compartirla con nosotros. 
+                    <br> (Maximo 5 archivos a la vez) 
+                </p>
             </div>
     
             <!-- Formulario de carga de archivo -->
-            <form id="uploadForm" enctype="multipart/form-data">
-                <label for="fileInput">Seleccionar Fotos</label>
-                <input id="fileInput" type="file" name="files" accept="image/*" multiple required>
-                <button id="uploadButton" type="button" class="upload-button">Subir Fotos</button>
-            </form>
-    
-            <!-- Mensaje de estado -->
-            <p id="status"></p>
+             <div class="contenedor-form">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <label for="fileInput">Tomar o Seleccionar Fotos</label>
+                    <input id="fileInput" type="file" name="files" accept="image/*" multiple required>
+                    <button id="uploadButton" type="button" class="upload-button">Subir Fotos</button>
+                </form>
+                <!-- Mensaje de estado -->
+                <p id="status"></p>
+            </div>
             
         </div>
     </section>
