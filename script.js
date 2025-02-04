@@ -114,35 +114,39 @@ setInterval(actualizarContador, 1000);
 // ======================================
 
 // Obtener los elementos del DOM
-const modal = document.querySelector(".modal"); // Seleccionar el modal por su clase
-const modalImage = document.getElementById("imagenModal"); // Seleccionar la imagen del modal
-const images = document.querySelectorAll(".contenedor-galeria img"); // Seleccionar todas las imágenes de la galería
-const closeBtn = document.querySelector(".close"); // Seleccionar el botón para cerrar
+const modal = document.querySelector(".modal");
+const modalImage = document.getElementById("imagenModal");
+const images = document.querySelectorAll(".contenedor-galeria img");
+const closeBtn = document.querySelector(".close");
 
-document.addEventListener("DOMContentLoaded", () => {
-  modal.style.display = "none"; // Ocultar el modal de forma segura
-});
+// Función para abrir el modal con animación
+const abrirModal = (imgSrc) => {
+  modalImage.src = imgSrc; // Asignar la imagen seleccionada
+  modal.style.display = "flex"; // Asegurar que el modal esté visible
+  setTimeout(() => modal.classList.add("show"), 10); // Agregar animación de apertura
+};
 
+// Función para cerrar el modal con animación
+const cerrarModal = () => {
+  modal.classList.remove("show"); // Iniciar animación de cierre
+  setTimeout(() => {
+    modal.style.display = "none"; // Ocultar completamente después de la animación
+  }, 300); // Tiempo igual a la transición en CSS
+};
 
-// Abrir el modal al hacer clic en una imagen
+// Evento para abrir el modal cuando se hace clic en una imagen
 images.forEach((img) => {
-  img.addEventListener("click", () => {
-    modal.style.display = "block"; // Mostrar el modal
-    modalImage.src = img.src; // Pasar la URL de la imagen clickeada al modal
-  });
+  img.addEventListener("click", () => abrirModal(img.src));
 });
 
-// Cerrar el modal al hacer clic en el botón de cierre
-closeBtn.addEventListener("click", () => {
-  modal.style.display = "none"; // Ocultar el modal
-});
+// Evento para cerrar el modal al hacer clic en el botón de cierre
+closeBtn.addEventListener("click", cerrarModal);
 
-// Cerrar el modal al hacer clic fuera de la imagen
+// Evento para cerrar el modal al hacer clic fuera de la imagen
 modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    modal.style.display = "none"; // Ocultar el modal si se hace clic fuera de la imagen
-  }
+  if (e.target === modal) cerrarModal();
 });
+
 
 
 // ======================================
@@ -161,13 +165,13 @@ document.getElementById("uploadButton").addEventListener("click", async () => {
 
   // Validar el número de archivos seleccionados
   if (fileInput.files.length > 5) {
-      status.innerText = "¡Recuerda que solo puedes seleccionar un máximo de 5 archivos a la vez! :)";
+      status.innerText = "¡Recuerda que solo puedes subir un máximo de 5 archivos a la vez! :)";
       return;
   }
 
   // Validar si el tamaño total de los archivos es mayor al límite
   const totalSize = Array.from(fileInput.files).reduce((total, file) => total + file.size, 0);
-  const maxSize = 50 * 1024 * 1024; // 50 MB en bytes
+  const maxSize = 60 * 1024 * 1024; // 60 MB en bytes
   if (totalSize > maxSize) {
       status.innerText = "¡El tamaño total de los archivos no debe superar los 50 MB!";
       return;

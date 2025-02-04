@@ -140,6 +140,7 @@ dotlottie-player {
     }
 }
 
+/*Para dispositivos pequenios*/
 @media (max-width: 480px) {
     #cartel-novios {
         padding: 1.5rem;
@@ -147,21 +148,28 @@ dotlottie-player {
         justify-content: center;
         position: absolute;
         padding-bottom: 4rem;
+        top: 40%;
+        left: 50%;
     }
 
     #cartel-novios h1 {
         font-size: 2.5rem;
-        padding-bottom: 1rem;
+        padding-top: 2.5rem;
+        padding-bottom: 2rem;
     }
 
-    #cartel-novios .frase, #cartel-novios .fecha {
-        font-size: 1.2rem;
+    #cartel-novios .frase {
+        font-size: 1.5rem;
         text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+        margin-bottom: 2px;
     }
+
+    #cartel-novios .fecha {
+      font-size: 1.2rem;
+      padding-top: 3px;
+  }
 
 }
-
-
 
 
 /*Seccion franja azul*/
@@ -624,6 +632,7 @@ h1, .sobre-nosotros {
     }
 }
 
+
 /* Modal: Oculto por defecto */
 .modal {
   display: flex;
@@ -641,8 +650,20 @@ h1, .sobre-nosotros {
   backdrop-filter: blur(8px); /* Efecto de desenfoque */
   z-index: 1000;
   overflow: hidden;
-  padding-top: 8rem;
+  padding-top: 3rem;
+  opacity: 0;
+  transform: scale(1.5);
+  pointer-events: none; /* Evita interacción cuando está oculto */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+
   }
+
+  /* Cuando el modal está activo */
+.modal.show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto; /* Permite interacción cuando está visible */
+}
   
   /* Imagen dentro del modal */
   .contenedor-modal {
@@ -658,7 +679,7 @@ h1, .sobre-nosotros {
   /* Botón para cerrar el modal */
   .close {
     margin-top: 80px; /* Espaciado entre la imagen y el botón */
-    margin-left: 49%;
+    margin: 80px auto;
     color: black;
     font-size: 60px; /* Tamaño del texto */
     font-weight: bold;
@@ -680,7 +701,6 @@ h1, .sobre-nosotros {
     color: rgba(0, 0, 0, 0.815); /* Cambia el color de la 'X' */
     transform: scale(1.5); /* Agranda ligeramente el botón al pasar el mouse */
   }
-
 /* Media Query: Tablets */
 @media (max-width: 768px) {
 
@@ -756,7 +776,7 @@ h1, .sobre-nosotros {
     overflow: hidden;
     width: 280px;
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .tarjeta:hover {
@@ -813,7 +833,7 @@ h1, .sobre-nosotros {
   
   .boton-mapa:hover {
     background-color: #c6ee16be;
-    transform: scale(1.08)
+    transform: scale(1.20)
     
   }
  /*Crear mediaquerys dependiendo del gusto*/
@@ -863,19 +883,21 @@ h1, .sobre-nosotros {
         margin: 0 1.2rem 1.2rem;
         color: #fff;
         text-align: justify;
-        padding-bottom: 1rem;
+        padding-bottom: 0.8rem;
     }
 
     .direccion-tarjeta {
         color: #fff;
         font-size: 0.7rem;
         margin: 0 1rem 1rem;
+        padding-bottom: 1px;
       }
     
       .horario-tarjeta {
         color: #fff;
         font-size: 0.7rem;
         margin: 0 1rem 1rem;
+        padding-top: 2px;
       }
   }
 
@@ -964,66 +986,124 @@ h1, .sobre-nosotros {
     }
 
     .titulo-video {
-        font-size: 2rem;
+        font-size: 2.4rem;
+        padding: 1rem 1rem;
     }
   }
 
 
 /*Seccion codigo de vestimenta*/
 
-  /* Estilos básicos de la sección para los invitados */
-/* .guest-outfits {
-    text-align: center;
-    background-color: #f9f9f9;
-    padding: 40px 20px;
-    margin: 40px auto;
-    max-width: 1200px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .guest-outfits h2 {
-    font-size: 2.5rem;
-    color: #2d2d2d;
-    margin-bottom: 15px;
-  }
-  
-  .guest-outfits p {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 30px;
-  }
-  
-  .outfits-gallery {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .outfit {
-    width: 30%;
-    text-align: center;
-    box-sizing: border-box;
-  }
-  
-  .outfit img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-  }
-  
-  .outfit img:hover {
-    transform: scale(1.05);
-  }
-  
-  .outfit p {
-    font-size: 1.1rem;
-    color: #333;
-    margin-top: 10px;
-    font-weight: 600;
-  }
+/* Estilos generales */
+.guest-outfits {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #5e7a51d8; /* Color cálido y elegante */
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.guest-outfits h2 {
+  font-size: 3rem;
+  color: #fff;
+  font-family: 'Dancing Script', cursive;
+  margin-bottom: 1rem;
+}
+
+/* Descripción */
+.guest-outfits p {
+  font-size: 1rem;
+  color: black;
+  font-family: 'Lora', serif;
+  margin-bottom: 2rem;
+}
+
+/* Galería de atuendos */
+.outfits-gallery {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Contenedor principal de cada atuendo con efecto de giro */
+.outfit {
+  width: 180px;
+  height: 250px;
+  position: relative;
+  perspective: 1000px; /* Agrega profundidad al efecto */
+}
+
+/* Caja interna que girará */
+.outfit-inner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d; /* Permite el efecto 3D */
+  transition: transform 0.6s ease-in-out;
+}
+
+/* Efecto de giro al pasar el mouse */
+.outfit:hover .outfit-inner {
+  transform: rotateY(180deg);
+}
+
+/* Parte delantera y trasera */
+.outfit-front, .outfit-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden; /* Oculta la parte trasera hasta que gire */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Parte delantera */
+.outfit-front {
+  z-index: 2;
+}
+
+/* Parte trasera con información adicional */
+.outfit-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(to bottom, #172c49dc, #169e81);
+  color: white;
+  font-family: 'Lora', serif;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.outfit-back p {
+  color: #fff !important;
+  font-size: 1.3rem !important;
+}
+
+/* Imágenes */
+.outfit img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+/* Texto debajo de las imágenes */
+.outfit p {
+  font-size: 1rem;
+  color: black;
+  font-weight: bold;
+  font-family: 'Lora', serif;
+}
+
+
+
   
   @media (max-width: 768px) {
     .outfits-gallery {
@@ -1035,49 +1115,14 @@ h1, .sobre-nosotros {
       margin-bottom: 20px;
     }
   }
-   */
+  
 
 /*Media queries*/
 
   /*Para pantallas de 768px y menos*/
 
-  /*Para pantallas de 480*/
+  /* Para pantallas de 480 */
 
-
-
-/*Seccion galeria de las ultimas 9 fotos subidas*/
-
- .galeria-drive {
-        color: #1A1A1A;
-    }
-
-.gallery {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-      
-.thumbnail {
-        width: 600px;  /* Tamaño de la miniatura, puedes ajustarlo */
-        height: 600px; /* Tamaño de la miniatura */
-        object-fit: cover;  /* Asegura que la imagen se recorte adecuadamente */
-        border-radius: 8px;  /* Bordes redondeados (opcional) */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera (opcional) */
-      }
-
-  #photoGallery img {
-    max-width: 150px;
-    max-height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
-  }
-  
-  #photoGallery img:hover {
-    transform: scale(1.1);
-  }
-  
 
 
 
@@ -1090,24 +1135,44 @@ h1, .sobre-nosotros {
   .contenedor-subir-fotos {
     display: grid;
     place-items: center;
+    margin-bottom: 2rem;
   }
 
   .title-upload-photos {
     text-align: center;
     font-family: 'Dancing Script', sans-serif;
-    font-size: 4.5rem;
-    padding-top: 1rem;
+    font-size: 3.5rem;
+    padding-top: 3rem;
     padding-bottom: 2rem;  
 }
 
   .texto-subir-fotos {
     text-align: center;
     font-family: 'Dancing Script', sans-serif;
-    font-size: 1.8rem;
+    padding: 2.5rem 2.5rem;
+    font-size: 2.3rem;
     font-weight: bold;
+    padding-top: 1rem;
     padding-bottom: 2rem;
 
     
+  }
+
+  .frase-texto {
+    margin-top: auto;
+  }
+
+  .texto-info {
+    padding-top: 3rem;
+    font-size: 1.3rem;
+    font-family: 'sans-serif';
+    font-weight: lighter;
+  }
+
+  .contenedor-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
 
@@ -1166,6 +1231,7 @@ h1, .sobre-nosotros {
   
   /* Mensaje de estado */
   #status {
+    margin-top: 2rem;
     text-align: center;
     font-family: 'Dancing Script', sans-serif;
     font-size: 1.5rem;
@@ -1207,7 +1273,7 @@ h1, .sobre-nosotros {
 @media (min-width: 768px) and (max-width:1023px) {
 
   .title-upload-photos {
-
+    font-size: 3rem;
   }
 
     .loader {
@@ -1235,6 +1301,11 @@ h1, .sobre-nosotros {
 
     }
 
+    .texto-info {
+      font-family: 'sans-serif';
+      font-weight: lighter;
+    }
+
     form {
         margin-bottom: 2rem;
     }
@@ -1251,6 +1322,7 @@ h1, .sobre-nosotros {
 
     .contenedor-form {
       padding-bottom: 5rem;
+      align-items: center;
     }
 
 
@@ -1263,7 +1335,7 @@ h1, .sobre-nosotros {
     .title-upload-photos {
         text-align: center;
         font-family: 'Dancing Script', sans-serif;
-        font-size: 3.5rem;
+        font-size: 2.5rem;
         padding-top: 2rem;
         padding-bottom: 1rem;  
         margin-bottom: 1rem;
@@ -1276,7 +1348,7 @@ h1, .sobre-nosotros {
 
     .frase-texto {
         font-size: 1.8rem;
-        padding-bottom: 2rem;
+        padding-bottom: 1rem;
         font-weight: bold;
     }
 
@@ -1308,97 +1380,99 @@ h1, .sobre-nosotros {
 
 
 
-  /*Seccion confirmar asistencia*/
-  #confirmar-asistencia {
-    background-color: #5e7a51d8; /* Fondo claro para la sección */
-    padding: 5rem; /* Espaciado alrededor */
-    text-align: center; /* Centra el contenido */
+/* Sección Confirmar Asistencia */
+#confirmar-asistencia {
+  background-color: #5e7a51d8; /* Fondo con un tono cálido */
+  padding: 4rem 2rem; /* Ajustado para mejor adaptación */
+  text-align: center; /* Centra el contenido */
 }
 
+/* Contenedor de confirmación */
 .confirmacion {
-    max-width: 600px; /* Ancho máximo del contenedor */
-    margin: 0 auto; /* Centra el contenedor */
-    padding: 1.5rem;
-    border: 1px solid #ddd; /* Borde sutil */
-    border-radius: 10px; /* Bordes redondeados */
-    background-color: #fff; /* Fondo blanco */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid #ddd; /* Borde sutil */
+  border-radius: 12px;
+  background-color: #fff; /* Fondo blanco */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra más ligera */
 }
 
+/* Título */
 .titulo-confirmacion {
-    font-family: 'Dancing Script', cursive; /* Fuente elegante */
-    font-size: 2rem; /* Tamaño del título */
-    color: #333; /* Color del texto */
-    margin-bottom: 1rem;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #2b2b2b; /* Color más oscuro para mejor lectura */
+  margin-bottom: 1.2rem;
 }
 
+/* Texto de confirmación */
 .texto-confirmacion {
-    font-family: 'Arial', sans-serif;
-    font-size: 1rem;
-    color: #555; /* Color de texto más claro */
-    margin-bottom: 2rem; /* Separación con el botón */
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  color: #444; /* Un poco más oscuro */
+  margin-bottom: 2rem;
 }
 
+/* Botón Confirmar */
 .boton-confirmar {
-    display: inline-block; /* Se comporta como un botón */
-    padding: 10px 20px; /* Espaciado interno */
-    font-size: 16px; /* Tamaño de texto */
-    color: white; /* Texto blanco */
-    background-color: #25D366; /* Verde WhatsApp */
-    text-decoration: none; /* Sin subrayado */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cursor de mano */
-    transition: background-color 0.3s ease; /* Efecto de transición */
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 18px;
+  color: white;
+  background-color: #25D366; /* Verde WhatsApp */
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+/* Efecto hover */
 .boton-confirmar:hover {
-    background-color: #1ebd5a; /* Verde más oscuro al pasar el mouse */
+  background-color: #1ebd5a;
+  transform: scale(1.05);
 }
 
+/* Media Query: Tablets y pantallas medianas */
+@media (min-width: 768px) and (max-width: 1200px) {
+  .titulo-confirmacion {
+      font-size: 2rem;
+  }
 
-@media (min-width: 768px) and (max-width: 1812px) {
-    .titulo-confirmacion,
-    .texto-titulo {
-        font-size: 2.5rem;
-    }
+  .texto-confirmacion {
+      font-size: 1rem;
+  }
 
-    .boton-confirmar,
-    .upload-button {
-        font-size: 1.2rem;
-        padding: 1rem 2rem;
-    }
+  .boton-confirmar {
+      font-size: 1.2rem;
+      padding: 14px 28px;
+  }
 }
 
+/* Media Query: Móviles */
 @media (max-width: 480px) {
+  #confirmar-asistencia {
+      padding: 3rem 1rem;
+  }
 
-    .confirmacion {
-        margin-top: 6rem;
-    }
-}
+  .confirmacion {
+      padding: 1.5rem;
+  }
 
+  .titulo-confirmacion {
+      font-size: 1.8rem;
+  }
 
-@media (max-width: 390px) {
-    #confirmar-asistencia {
-        margin-top: auto;
-        
-    }
-    #subir-fotos {
-        padding-bottom: 3rem;
-        margin-bottom: auto;
-    }
+  .texto-confirmacion {
+      font-size: 1rem;
+  }
 
-    .titulo-confirmacion {
-        font-size: 1.6rem;
-    }
-    .texto-titulo {
-        font-size: 1.5rem;
-        margin: auto;
-    }
-
-    .boton-confirmar,
-    .upload-button {
-        font-size: 0.9rem;
-        padding: 0.6rem 1rem;
-    }
+  .boton-confirmar {
+      font-size: 1rem;
+      padding: 10px 20px;
+      width: 90%;
+      display: block;
+      margin: 0 auto;
+  }
 }
 

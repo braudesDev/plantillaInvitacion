@@ -31,7 +31,7 @@ app.get("/styles.css", (req, res) => {
 // Configuración de multer con validación de tipos de archivo
 const upload = multer({
   dest: "uploads/",
-  limits: { fileSize: 50 * 1024 * 1024 }, // Límite de 50 MB
+  limits: { fileSize: 60 * 1024 * 1024 }, // Límite de 60 MB
   fileFilter: (req, file, cb) => {
     const validMimes = ["image/jpeg", "image/png", "image/gif"];
     cb(null, validMimes.includes(file.mimetype));
