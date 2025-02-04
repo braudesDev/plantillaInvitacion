@@ -82,6 +82,11 @@ app.get("/files", async (req, res) => {
   }
 });
 
+// Ruta de verificación de salud
+app.get("/healthz", (req, res) => {
+  res.status(200).send("OK");
+});
+
 // Middleware para manejo global de errores
 app.use((err, req, res, next) => {
   console.error("Error global:", err);
