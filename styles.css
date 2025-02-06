@@ -365,7 +365,7 @@ h1, .sobre-nosotros {
 
 .texto-biografia p {
     font-size: 1rem;
-    color: #fff;
+    color: #ffffff;
     line-height: 1.5;
     text-align: justify;
 }
@@ -456,7 +456,9 @@ h1, .sobre-nosotros {
     font-size: 2.5rem;
     margin-bottom: 1rem;
     text-align: center;
-    font-family: 'Dancing Script', sans-serif;
+    color: #A8E6CF;
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
     
 }
 
@@ -465,22 +467,33 @@ h1, .sobre-nosotros {
     text-align: justify;
     font-size: 1.5rem;
     line-height: 1.8rem;
-    color: black;
+    color: #D9D9D9;
 }
 
 .historia-foto img {
     max-width: 100%;
     border-radius: 20px; /* Esquinas redondeadas para las imágenes */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Sombra sutil */
+    
 }
 
+@media  screen and (min-width: 1200) {
+
+  .historia-foto img {
+    width: 70%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+  
 .foto-historia {
-    width: 100%;
+    width: 50%;
     border-radius: 20px; /* Cambia el porcentaje según el diseño que prefieras */
     object-fit: contain; /* Muestra la imagen completa sin recortarla */
     box-shadow: rgba(0, 0, 0, 0.05);
-
 }
+
+
 
 .historia-fila1 {
     flex-direction: row;
@@ -555,7 +568,7 @@ h1, .sobre-nosotros {
 
     .historia-texto h2 {
         font-size: 1.8rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.7rem;
     }
 
     .historia-texto p {
@@ -910,19 +923,37 @@ h1, .sobre-nosotros {
     color: #fff; /* Texto blanco */
     text-align: center;
     padding: 1.5rem 1rem; /* Espaciado interno */
-    font-family: 'Dancing Script', cursive; /* Fuente elegante */
+    font-family: 'Playfair Display', serif; /* Fuente elegante */
     font-size: 3rem; /* Tamaño del texto */
     line-height: 2; /* Altura de línea */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombras sutiles */
   }
   
   /* Mensaje de amor */
-  .mensaje-amor {
+  .frase-amor {
     margin: 0; /* Elimina el margen por defecto */
     font-style: italic; /* Cursiva para darle un toque romántico */
     max-width: 800px; /* Limitar el ancho del texto */
     margin-left: auto;
     margin-right: auto;
+  }
+
+  @media (max-width: 768px) {
+    .frase-amor  {
+      line-height: 1.5;
+    }
+
+  }
+
+  @media (max-width: 480px) {
+    .frase-amor {
+      line-height: 1.3;
+    }
+
+
+    .frase-amor {
+      font-size: 2rem;
+    }
   }
 
 
@@ -931,15 +962,18 @@ h1, .sobre-nosotros {
   /* Sección del video */
   #video-yt {
     background-color: #5e7a51d8;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%231a3151' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: repeat; /* Se repite por toda la pantalla */
+    background-size: auto; 
     margin-top: 0;
-    padding: 2rem 0; /* Añadimos un poco de padding para que no quede pegado a los bordes */
+    padding: 2rem 0;/*Añadimos un poco de padding para que no quede pegado a los bordes */
   }
   
   .video-youtube {
     display: block;
     flex-direction: column;
-    align-items: center;         /* Centra el contenido horizontalmente */
-    justify-content: center;     /* Centra el contenido verticalmente */
+    align-items: center;/* Centra el contenido horizontalmente */
+    justify-content: center;/* Centra el contenido verticalmente */
     text-align: center;
     margin: 2rem 1rem;
     pointer-events: none;
@@ -995,13 +1029,19 @@ h1, .sobre-nosotros {
 /*Seccion codigo de vestimenta*/
 
 /* Estilos generales */
-.guest-outfits {
+
+
+#guest-outfits {
   text-align: center;
   padding: 3rem 2rem;
   background: #5e7a51d8; /* Color cálido y elegante */
   margin: 0 auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%231a3151' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: repeat; /* Se repite por toda la pantalla */
+  background-size: auto; 
 }
+
 
 /* Título */
 .guest-outfits h2 {
@@ -1013,7 +1053,7 @@ h1, .sobre-nosotros {
 
 /* Descripción */
 .guest-outfits p {
-  font-size: 1rem;
+  font-size: 2rem;
   color: black;
   font-family: 'Lora', serif;
   margin-bottom: 2rem;
@@ -1048,6 +1088,22 @@ h1, .sobre-nosotros {
 .outfit:hover .outfit-inner {
   transform: rotateY(180deg);
 }
+
+.outfit-front {
+  width: 250px; /* Ajusta el tamaño según sea necesario */
+  height: 350px;
+  background-image: url('https://res.cloudinary.com/drsyb53ae/image/upload/v1738648074/fotos%20invitacion%20paulina/icons/sk0ebxvmrauxwjghdusk.svg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  color: white;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
 
 /* Parte delantera y trasera */
 .outfit-front, .outfit-back {
@@ -1119,10 +1175,15 @@ h1, .sobre-nosotros {
 
 /*Media queries*/
 
-  /*Para pantallas de 768px y menos*/
-
   /* Para pantallas de 480 */
-
+@media (max-width: 480px) {
+  .guest-outfits p {
+    font-size: 1rem;
+    color: black;
+    font-family: 'Lora', serif;
+    margin-bottom: 2rem;
+  }
+}
 
 
 
@@ -1130,6 +1191,9 @@ h1, .sobre-nosotros {
   /* Estilo general para la sección seleccionar fotos */
   #subir-fotos {
     background-color: #5e7a51d8;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%231a3151' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: repeat; /* Se repite por toda la pantalla */
+    background-size: auto; 
   }
 
   .contenedor-subir-fotos {
@@ -1377,12 +1441,61 @@ h1, .sobre-nosotros {
 
 
 
-
-
-
 /* Sección Confirmar Asistencia */
 #confirmar-asistencia {
   background-color: #5e7a51d8; /* Fondo con un tono cálido */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%231a3151' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: repeat; /* Se repite por toda la pantalla */
+  background-size: auto; 
+  padding: 4rem 2rem; /* Ajustado para mejor adaptación */
+  text-align: center; /* Centra el contenido */
+}
+
+/* Contenedor de confirmación */
+.confirmacion {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid #ddd; /* Borde sutil */
+  border-radius: 12px;
+  background-color: #fff; /* Fondo blanco */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra más ligera */
+}
+
+/* Título */
+.titulo-confirmacion {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #2b2b2b; /* Color más oscuro para mejor lectura */
+  margin-bottom: 1.2rem;
+}
+
+/* Texto de confirmación */
+.texto-confirmacion {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  color: #444; /* Un poco más oscuro */
+  margin-bottom: 2rem;
+}
+
+/* Botón Confirmar */
+.boton-confirmar {
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 18px;
+  color: white;
+  background-color: #25D366; /* Verde WhatsApp */
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#confirmar-asistencia {
+  background-color: #5e7a51d8; /* Fondo con un tono cálido */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%231a3151' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: repeat; /* Se repite por toda la pantalla */
+  background-size: auto; 
   padding: 4rem 2rem; /* Ajustado para mejor adaptación */
   text-align: center; /* Centra el contenido */
 }
@@ -1436,43 +1549,42 @@ h1, .sobre-nosotros {
 /* Media Query: Tablets y pantallas medianas */
 @media (min-width: 768px) and (max-width: 1200px) {
   .titulo-confirmacion {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
   .texto-confirmacion {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 
   .boton-confirmar {
-      font-size: 1.2rem;
-      padding: 14px 28px;
+    font-size: 1.2rem;
+    padding: 14px 28px;
   }
 }
 
 /* Media Query: Móviles */
 @media (max-width: 480px) {
   #confirmar-asistencia {
-      padding: 3rem 1rem;
+    padding: 3rem 1rem;
   }
 
   .confirmacion {
-      padding: 1.5rem;
+    padding: 1.5rem;
   }
 
   .titulo-confirmacion {
-      font-size: 1.8rem;
+    font-size: 1.8rem;
   }
 
   .texto-confirmacion {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 
   .boton-confirmar {
-      font-size: 1rem;
-      padding: 10px 20px;
-      width: 90%;
-      display: block;
-      margin: 0 auto;
+    font-size: 1rem;
+    padding: 10px 20px;
+    width: 90%;
+    display: block;
+    margin: 0 auto;
   }
 }
-

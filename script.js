@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Agregar clase activa a la nueva imagen
       imagenes[indiceActual].classList.add("activa");
-  }, 4000); // Cambia cada 5 segundos
+  }, 3000); // Cambia cada 5 segundos
 });
 
 
@@ -209,3 +209,24 @@ document.getElementById("uploadButton").addEventListener("click", async () => {
       status.innerText = `Error: ${error.message}`;
   }
 });
+
+
+// ======================================
+// Lógica para confirmacion de asistencia
+// ======================================
+
+    // Selecciona el botón de confirmar (el enlace)
+    const botonConfirmar = document.querySelector('.boton-confirmar');
+
+    botonConfirmar.addEventListener('click', function(event) {
+      // Si deseas ver la animación antes de redirigir, descomenta las dos líneas siguientes:
+      event.preventDefault();
+      setTimeout(() => window.open(botonConfirmar.href, '_blank'), 1500);
+
+      // Lanza la animación de confeti
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    });
